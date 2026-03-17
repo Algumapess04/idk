@@ -1,0 +1,965 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Zer00 — Security & Investigation</title>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #050505;
+    --surface: #0e0e10;
+    --surface2: #141416;
+    --border: rgba(255,255,255,0.08);
+    --accent: #00f5a0;
+    --accent2: #00d4ff;
+    --accent3: #ff3b6e;
+    --text: #f0f0f0;
+    --muted: #888;
+    --dimmed: #444;
+    --font: 'Space Grotesk', sans-serif;
+    --mono: 'JetBrains Mono', monospace;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; font-size: 16px; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    overflow-x: hidden;
+    cursor: none;
+  }
+
+  /* Custom cursor */
+  .cursor {
+    width: 10px; height: 10px;
+    background: var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9999;
+    transform: translate(-50%, -50%);
+    transition: transform 0.1s, width 0.2s, height 0.2s, background 0.2s;
+    mix-blend-mode: difference;
+  }
+  .cursor-ring {
+    width: 36px; height: 36px;
+    border: 1px solid var(--accent);
+    border-radius: 50%;
+    position: fixed; top: 0; left: 0;
+    pointer-events: none; z-index: 9998;
+    transform: translate(-50%, -50%);
+    transition: transform 0.15s ease-out, width 0.2s, height 0.2s, border-color 0.2s;
+    opacity: 0.6;
+  }
+  .cursor.hover { width: 20px; height: 20px; background: var(--accent2); }
+  .cursor-ring.hover { width: 56px; height: 56px; border-color: var(--accent2); opacity: 0.3; }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 1.2rem 3rem;
+    background: rgba(5,5,5,0.85);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border-bottom: 1px solid var(--border);
+    transition: padding 0.3s;
+  }
+  .nav-logo {
+    font-family: var(--mono);
+    font-size: 1.1rem;
+    font-weight: 500;
+    color: var(--text);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+  }
+  .nav-logo span { color: var(--accent); }
+  .nav-links {
+    display: flex; gap: 2rem; list-style: none;
+  }
+  .nav-links a {
+    color: var(--muted);
+    text-decoration: none;
+    font-size: 0.85rem;
+    font-weight: 400;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: color 0.2s;
+  }
+  .nav-links a:hover { color: var(--text); }
+  .nav-cta {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--accent);
+    padding: 0.55rem 1.4rem;
+    border-radius: 100px;
+    font-family: var(--font);
+    font-size: 0.85rem;
+    font-weight: 500;
+    cursor: none;
+    text-decoration: none;
+    transition: background 0.2s, color 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .nav-cta:hover { background: var(--accent); color: var(--bg); }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    display: flex; flex-direction: column;
+    justify-content: center; align-items: center;
+    text-align: center;
+    padding: 8rem 2rem 4rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-grid {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(0,245,160,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(0,245,160,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
+    -webkit-mask-image: radial-gradient(ellipse at center, black 20%, transparent 80%);
+  }
+  .hero-glow {
+    position: absolute; width: 600px; height: 600px;
+    background: radial-gradient(ellipse, rgba(0,245,160,0.12) 0%, transparent 70%);
+    top: 50%; left: 50%; transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 0.5rem;
+    background: rgba(0,245,160,0.08);
+    border: 1px solid rgba(0,245,160,0.2);
+    border-radius: 100px;
+    padding: 0.4rem 1rem;
+    font-family: var(--mono);
+    font-size: 0.75rem;
+    color: var(--accent);
+    letter-spacing: 0.08em;
+    margin-bottom: 2.5rem;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.2s;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    background: var(--accent);
+    border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(0.8); }
+  }
+  .hero h1 {
+    font-size: clamp(3.5rem, 10vw, 9rem);
+    font-weight: 700;
+    line-height: 0.95;
+    letter-spacing: -0.03em;
+    margin-bottom: 0.1em;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.4s;
+  }
+  .hero h1 .name {
+    display: block;
+    background: linear-gradient(135deg, #fff 0%, #ccc 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero h1 .tagline-word {
+    display: block;
+    background: linear-gradient(90deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-size: clamp(1.5rem, 4vw, 3.5rem);
+    font-weight: 300;
+    letter-spacing: 0.01em;
+    margin-top: 0.3em;
+  }
+  .hero-sub {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 520px;
+    line-height: 1.7;
+    margin: 2rem auto 3.5rem;
+    font-weight: 300;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.6s;
+  }
+  .hero-actions {
+    display: flex; gap: 1rem; flex-wrap: wrap; justify-content: center;
+    opacity: 0; animation: fadeUp 0.8s ease forwards 0.8s;
+  }
+  .btn-primary {
+    background: var(--accent);
+    color: var(--bg);
+    padding: 0.9rem 2.2rem;
+    border-radius: 100px;
+    font-family: var(--font);
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: none;
+    transition: transform 0.2s, box-shadow 0.2s;
+    letter-spacing: 0.01em;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-primary:hover { transform: scale(1.03); box-shadow: 0 0 40px rgba(0,245,160,0.3); }
+  .btn-ghost {
+    background: transparent;
+    color: var(--text);
+    padding: 0.9rem 2.2rem;
+    border-radius: 100px;
+    border: 1px solid var(--border);
+    font-family: var(--font);
+    font-weight: 400;
+    font-size: 0.95rem;
+    text-decoration: none;
+    cursor: none;
+    transition: border-color 0.2s, background 0.2s;
+    display: inline-flex; align-items: center; gap: 0.5rem;
+  }
+  .btn-ghost:hover { border-color: rgba(255,255,255,0.3); background: rgba(255,255,255,0.04); }
+  .scroll-indicator {
+    position: absolute; bottom: 2.5rem; left: 50%; transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+    opacity: 0; animation: fadeIn 1s ease forwards 1.5s;
+  }
+  .scroll-indicator span {
+    font-size: 0.7rem; color: var(--dimmed); letter-spacing: 0.12em; text-transform: uppercase; font-family: var(--mono);
+  }
+  .scroll-line {
+    width: 1px; height: 48px;
+    background: linear-gradient(to bottom, var(--dimmed), transparent);
+    animation: scrollDown 1.5s ease-in-out infinite;
+  }
+  @keyframes scrollDown { 0%,100%{transform:scaleY(1);transform-origin:top} 50%{transform:scaleY(0.5);transform-origin:bottom} }
+
+  /* SECTIONS */
+  section { padding: 8rem 2rem; position: relative; }
+  .section-inner { max-width: 1100px; margin: 0 auto; }
+  .section-label {
+    font-family: var(--mono);
+    font-size: 0.72rem;
+    color: var(--accent);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 1rem;
+    display: flex; align-items: center; gap: 0.8rem;
+  }
+  .section-label::before {
+    content: ''; flex: 0 0 24px; height: 1px; background: var(--accent);
+  }
+  .section-title {
+    font-size: clamp(2.2rem, 5vw, 4rem);
+    font-weight: 700;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 1.5rem;
+  }
+  .section-desc {
+    font-size: 1.1rem;
+    color: var(--muted);
+    max-width: 560px;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* SKILLS GRID */
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 1.5px;
+    margin-top: 5rem;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .skill-card {
+    background: var(--surface);
+    padding: 3rem 2.5rem;
+    position: relative;
+    overflow: hidden;
+    transition: background 0.3s;
+  }
+  .skill-card:hover { background: var(--surface2); }
+  .skill-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, var(--card-accent, var(--accent)), transparent);
+    opacity: 0; transition: opacity 0.3s;
+  }
+  .skill-card:hover::before { opacity: 1; }
+  .skill-icon {
+    width: 52px; height: 52px;
+    border-radius: 14px;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.4rem;
+    margin-bottom: 2rem;
+    transition: transform 0.3s;
+  }
+  .skill-card:hover .skill-icon { transform: scale(1.1) rotate(-3deg); }
+  .skill-card h3 {
+    font-size: 1.3rem;
+    font-weight: 600;
+    letter-spacing: -0.02em;
+    margin-bottom: 0.8rem;
+  }
+  .skill-card p {
+    font-size: 0.92rem;
+    color: var(--muted);
+    line-height: 1.7;
+    font-weight: 300;
+  }
+  .skill-tags {
+    display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 1.5rem;
+  }
+  .skill-tag {
+    font-family: var(--mono);
+    font-size: 0.7rem;
+    color: var(--muted);
+    background: rgba(255,255,255,0.04);
+    border: 1px solid var(--border);
+    padding: 0.25rem 0.7rem;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+  }
+
+  /* ABOUT BENTO */
+  .bento {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 1.5px;
+    margin-top: 5rem;
+    background: var(--border);
+    border: 1px solid var(--border);
+  }
+  .bento-cell {
+    background: var(--surface);
+    padding: 2.5rem;
+    position: relative; overflow: hidden;
+    transition: background 0.3s;
+  }
+  .bento-cell:hover { background: var(--surface2); }
+  .bento-cell.wide { grid-column: span 2; }
+  .bento-cell.tall { grid-row: span 2; }
+  .bento-cell .stat {
+    font-size: 3.5rem;
+    font-weight: 700;
+    letter-spacing: -0.04em;
+    line-height: 1;
+    background: linear-gradient(135deg, var(--accent), var(--accent2));
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .bento-cell .stat-label {
+    font-size: 0.85rem; color: var(--muted); margin-top: 0.5rem; font-weight: 300;
+  }
+  .terminal {
+    font-family: var(--mono);
+    font-size: 0.8rem;
+    color: var(--accent);
+    background: rgba(0,0,0,0.4);
+    padding: 1.2rem;
+    border-radius: 8px;
+    margin-top: 1rem;
+    border: 1px solid rgba(0,245,160,0.1);
+    line-height: 1.8;
+  }
+  .terminal .prompt { color: var(--accent2); }
+  .terminal .comment { color: var(--dimmed); }
+
+  /* SERVICES / PRICING */
+  .pricing-tabs {
+    display: flex; gap: 0.5rem; margin-bottom: 3rem; flex-wrap: wrap;
+  }
+  .tab-btn {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--muted);
+    padding: 0.6rem 1.4rem;
+    border-radius: 100px;
+    font-family: var(--font);
+    font-size: 0.85rem;
+    cursor: none;
+    transition: all 0.2s;
+    letter-spacing: 0.03em;
+  }
+  .tab-btn.active { background: var(--text); color: var(--bg); border-color: var(--text); font-weight: 600; }
+  .tab-btn:hover:not(.active) { border-color: rgba(255,255,255,0.3); color: var(--text); }
+  .pricing-panel { display: none; }
+  .pricing-panel.active { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1rem; }
+  .price-card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s, border-color 0.3s;
+  }
+  .price-card:hover { transform: translateY(-4px); border-color: rgba(255,255,255,0.2); }
+  .price-card.featured {
+    border-color: var(--accent);
+    background: linear-gradient(135deg, rgba(0,245,160,0.05) 0%, var(--surface) 60%);
+  }
+  .featured-badge {
+    position: absolute; top: 1rem; right: 1rem;
+    background: var(--accent); color: var(--bg);
+    font-size: 0.7rem; font-weight: 700;
+    padding: 0.25rem 0.7rem; border-radius: 100px;
+    letter-spacing: 0.05em; text-transform: uppercase;
+  }
+  .price-card h3 { font-size: 1.1rem; font-weight: 600; margin-bottom: 0.5rem; }
+  .price-card .price {
+    font-size: 2.2rem; font-weight: 700; letter-spacing: -0.03em;
+    color: var(--accent); margin: 1rem 0 0.3rem;
+  }
+  .price-card .price-note { font-size: 0.8rem; color: var(--muted); margin-bottom: 1.5rem; }
+  .price-card ul { list-style: none; display: flex; flex-direction: column; gap: 0.7rem; }
+  .price-card li {
+    font-size: 0.88rem; color: var(--muted);
+    display: flex; align-items: flex-start; gap: 0.6rem; font-weight: 300;
+  }
+  .price-card li::before { content: '→'; color: var(--accent); font-family: var(--mono); flex-shrink: 0; font-size: 0.8rem; margin-top: 0.05rem; }
+  .price-card .price-cta {
+    display: block; text-align: center;
+    margin-top: 2rem; padding: 0.75rem;
+    border-radius: 10px;
+    font-size: 0.9rem; font-weight: 500;
+    text-decoration: none;
+    transition: all 0.2s;
+    cursor: none;
+  }
+  .price-card .price-cta.outline {
+    border: 1px solid var(--border); color: var(--text);
+  }
+  .price-card .price-cta.outline:hover { border-color: rgba(255,255,255,0.4); background: rgba(255,255,255,0.04); }
+  .price-card.featured .price-cta {
+    background: var(--accent); color: var(--bg); font-weight: 600;
+  }
+  .price-card.featured .price-cta:hover { box-shadow: 0 0 30px rgba(0,245,160,0.3); }
+  .price-divider { border: none; border-top: 1px solid var(--border); margin: 1.5rem 0; }
+
+  /* CONTACT */
+  .contact-section { background: var(--surface); }
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+  }
+  .contact-btns {
+    display: flex; flex-direction: column; gap: 1rem; margin-top: 2.5rem;
+  }
+  .contact-btn {
+    display: flex; align-items: center; gap: 1.2rem;
+    padding: 1.2rem 1.5rem;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    text-decoration: none;
+    color: var(--text);
+    transition: border-color 0.2s, background 0.2s, transform 0.2s;
+    cursor: none;
+  }
+  .contact-btn:hover { border-color: rgba(255,255,255,0.25); background: rgba(255,255,255,0.03); transform: translateX(4px); }
+  .contact-btn-icon {
+    width: 44px; height: 44px;
+    border-radius: 11px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 1.2rem;
+    flex-shrink: 0;
+  }
+  .contact-btn-text { display: flex; flex-direction: column; gap: 0.15rem; }
+  .contact-btn-label { font-size: 0.72rem; color: var(--muted); letter-spacing: 0.08em; text-transform: uppercase; font-family: var(--mono); }
+  .contact-btn-value { font-size: 0.95rem; font-weight: 500; }
+  .contact-btn-arrow { margin-left: auto; color: var(--dimmed); font-size: 1rem; transition: transform 0.2s, color 0.2s; }
+  .contact-btn:hover .contact-btn-arrow { transform: translateX(4px); color: var(--text); }
+
+  /* FOOTER */
+  footer {
+    border-top: 1px solid var(--border);
+    padding: 3rem 2rem;
+    text-align: center;
+    font-size: 0.8rem;
+    color: var(--dimmed);
+    font-family: var(--mono);
+  }
+  footer span { color: var(--accent); }
+
+  /* ANIMATIONS */
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  @keyframes fadeIn {
+    from { opacity: 0; } to { opacity: 1; }
+  }
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+  .reveal-delay-1 { transition-delay: 0.1s; }
+  .reveal-delay-2 { transition-delay: 0.2s; }
+  .reveal-delay-3 { transition-delay: 0.3s; }
+  .reveal-delay-4 { transition-delay: 0.4s; }
+
+  /* SEPARATOR */
+  .sep {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--border), transparent);
+    margin: 0;
+  }
+
+  /* noise overlay */
+  body::before {
+    content: '';
+    position: fixed; inset: 0; z-index: 1000;
+    pointer-events: none;
+    opacity: 0.025;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    nav { padding: 1rem 1.5rem; }
+    .nav-links { display: none; }
+    .bento { grid-template-columns: 1fr; }
+    .bento-cell.wide { grid-column: span 1; }
+    .contact-grid { grid-template-columns: 1fr; gap: 2rem; }
+    section { padding: 5rem 1.5rem; }
+  }
+</style>
+</head>
+<body>
+
+<div class="cursor" id="cursor"></div>
+<div class="cursor-ring" id="cursorRing"></div>
+
+<!-- NAV -->
+<nav>
+  <a class="nav-logo" href="#"><span>//</span> Zer00</a>
+  <ul class="nav-links">
+    <li><a href="#services">Serviços</a></li>
+    <li><a href="#about">Sobre</a></li>
+    <li><a href="#pricing">Preços</a></li>
+    <li><a href="#contact">Contato</a></li>
+  </ul>
+  <a href="#contact" class="nav-cta">Contratar</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-grid"></div>
+  <div class="hero-glow"></div>
+
+  <div class="hero-badge">Disponível para projetos</div>
+
+  <h1>
+    <span class="name">Zer00</span>
+    <span class="tagline-word">Hack. Code. Investigate.</span>
+  </h1>
+
+  <p class="hero-sub">
+    Segurança ofensiva, desenvolvimento e investigação privada. Soluções onde outros param na superfície — eu vou mais fundo.
+  </p>
+
+  <div class="hero-actions">
+    <a href="#pricing" class="btn-primary">Ver Serviços →</a>
+    <a href="https://github.com/Algumapess04" target="_blank" class="btn-ghost">
+      <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.166 6.839 9.489.5.09.682-.218.682-.484 0-.236-.009-.866-.013-1.699-2.782.602-3.369-1.34-3.369-1.34-.455-1.157-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.833.091-.647.349-1.086.635-1.337-2.22-.251-4.555-1.111-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.254-.447-1.27.098-2.645 0 0 .84-.269 2.75 1.026A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.748-1.026 2.748-1.026.546 1.376.202 2.394.1 2.646.64.699 1.026 1.591 1.026 2.682 0 3.841-2.337 4.687-4.565 4.935.359.307.679.917.679 1.852 0 1.335-.012 2.415-.012 2.741 0 .269.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+      GitHub
+    </a>
+  </div>
+
+  <div class="scroll-indicator">
+    <span>Scroll</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- SERVICES -->
+<section id="services">
+  <div class="section-inner">
+    <div class="section-label reveal">Especialidades</div>
+    <h2 class="section-title reveal reveal-delay-1">Três áreas.<br>Uma missão.</h2>
+    <p class="section-desc reveal reveal-delay-2">Atuação técnica e discreta nos campos onde segurança, código e investigação se cruzam.</p>
+
+    <div class="skills-grid">
+      <div class="skill-card reveal reveal-delay-1" style="--card-accent: #00f5a0;">
+        <div class="skill-icon">⚡</div>
+        <h3>Hacking & Segurança</h3>
+        <p>Testes de intrusão, análise de vulnerabilidades, engenharia reversa e hardening de sistemas. Pentest ético com relatório completo.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">pentest</span>
+          <span class="skill-tag">OSINT</span>
+          <span class="skill-tag">RE</span>
+          <span class="skill-tag">CTF</span>
+          <span class="skill-tag">exploit dev</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal reveal-delay-2" style="--card-accent: #00d4ff;">
+        <div class="skill-icon">🖥</div>
+        <h3>Programação & Dev</h3>
+        <p>Desenvolvimento de ferramentas de segurança, automação, scripts e sistemas customizados. Do conceito ao deploy.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">Python</span>
+          <span class="skill-tag">C/C++</span>
+          <span class="skill-tag">Bash</span>
+          <span class="skill-tag">Go</span>
+          <span class="skill-tag">web scraping</span>
+        </div>
+      </div>
+
+      <div class="skill-card reveal reveal-delay-3" style="--card-accent: #ff3b6e;">
+        <div class="skill-icon">🔍</div>
+        <h3>Investigação Privada</h3>
+        <p>Coleta e análise de dados abertos (OSINT), rastreamento digital, verificação de identidades e due diligence técnica.</p>
+        <div class="skill-tags">
+          <span class="skill-tag">OSINT</span>
+          <span class="skill-tag">SOCMINT</span>
+          <span class="skill-tag">análise forense</span>
+          <span class="skill-tag">metadados</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- ABOUT BENTO -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label reveal">Sobre</div>
+    <h2 class="section-title reveal reveal-delay-1">Quem é<br>o Zer00.</h2>
+
+    <div class="bento reveal reveal-delay-2">
+      <div class="bento-cell wide">
+        <p style="font-size:1.05rem; color:var(--muted); line-height:1.8; font-weight:300;">
+          Profissional independente especializado na intersecção entre segurança ofensiva, desenvolvimento e inteligência de fontes abertas. Trabalho de forma discreta, entrego com precisão.
+        </p>
+        <div class="terminal" style="margin-top:1.5rem;">
+          <div><span class="prompt">zer00@0x ~</span> whoami</div>
+          <div style="color:var(--muted)">hacker | dev | investigador</div>
+          <div style="margin-top:0.5rem"><span class="prompt">zer00@0x ~</span> cat skills.txt</div>
+          <div class="comment"># offensive security · OSINT · automation · RE</div>
+        </div>
+      </div>
+
+      <div class="bento-cell">
+        <div class="stat">∞</div>
+        <div class="stat-label">Dados analisados</div>
+      </div>
+
+      <div class="bento-cell">
+        <div class="stat">0</div>
+        <div class="stat-label">Brechas deixadas</div>
+      </div>
+
+      <div class="bento-cell">
+        <div class="stat">100%</div>
+        <div class="stat-label">Discrição garantida</div>
+      </div>
+
+      <div class="bento-cell">
+        <div style="font-family:var(--mono); font-size:0.78rem; color:var(--accent); line-height:1.9;">
+          <div style="color:var(--dimmed); margin-bottom:0.5rem">// ferramentas</div>
+          <div>Kali Linux · Burp Suite</div>
+          <div>Metasploit · Wireshark</div>
+          <div>Maltego · Shodan</div>
+          <div>Ghidra · IDA Pro</div>
+          <div>nmap · sqlmap</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- PRICING -->
+<section id="pricing" style="background: var(--bg);">
+  <div class="section-inner">
+    <div class="section-label reveal">Serviços & Preços</div>
+    <h2 class="section-title reveal reveal-delay-1">Escolha o<br>seu serviço.</h2>
+    <p class="section-desc reveal reveal-delay-2">Selecione a área e veja os planos disponíveis. Todos incluem sigilo total e relatório detalhado.</p>
+
+    <div class="pricing-tabs reveal reveal-delay-3">
+      <button class="tab-btn active" onclick="showTab('hacking')">⚡ Hacking</button>
+      <button class="tab-btn" onclick="showTab('dev')">🖥 Programação</button>
+      <button class="tab-btn" onclick="showTab('invest')">🔍 Investigação</button>
+    </div>
+
+    <!-- HACKING -->
+    <div class="pricing-panel active" id="tab-hacking">
+      <div class="price-card reveal">
+        <h3>Scan & Relatório</h3>
+        <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">Análise de vulnerabilidades básica</p>
+        <div class="price">R$ 350</div>
+        <div class="price-note">entrega em até 48h</div>
+        <hr class="price-divider">
+        <ul>
+          <li>Scan de portas e serviços</li>
+          <li>Identificação de CVEs públicas</li>
+          <li>Relatório em PDF detalhado</li>
+          <li>1 alvo / domínio</li>
+        </ul>
+        <a href="#contact" class="price-cta outline">Solicitar →</a>
+      </div>
+
+      <div class="price-card featured reveal reveal-delay-1">
+        <div class="featured-badge">Popular</div>
+        <h3>Pentest Completo</h3>
+        <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">Intrusão controlada e documentada</p>
+        <div class="price">R$ 1.200</div>
+        <div class="price-note">entrega em até 7 dias</div>
+        <hr class="price-divider">
+        <ul>
+          <li>Reconhecimento (OSINT + ativo)</li>
+          <li>Exploração de vulnerabilidades</li>
+          <li>Escalada de privilégios</li>
+          <li>Relatório executivo + técnico</li>
+          <li>Até 3 alvos</li>
+          <li>Recomendações de mitigação</li>
+        </ul>
+        <a href="#contact" class="price-cta">Contratar →</a>
+      </div>
+
+      <div class="price-card reveal reveal-delay-2">
+        <h3>Red Team</h3>
+        <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">Simulação avançada de ameaça</p>
+        <div class="price">Sob consulta</div>
+        <div class="price-note">prazo a definir</div>
+        <hr class="price-divider">
+        <ul>
+          <li>Simulação de APT real</li>
+          <li>Phishing + engenharia social</li>
+          <li>Persistência e lateral movement</li>
+          <li>Relatório de impacto completo</li>
+          <li>Alvos ilimitados</li>
+          <li>Suporte pós-entrega</li>
+        </ul>
+        <a href="#contact" class="price-cta outline">Negociar →</a>
+      </div>
+    </div>
+
+    <!-- DEV -->
+    <div class="pricing-panel" id="tab-dev">
+      <div class="price-card reveal">
+        <h3>Script / Automação</h3>
+        <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">Ferramentas simples e scripts</p>
+        <div class="price">R$ 200</div>
+        <div class="price-note">a partir de</div>
+        <hr class="price-divider">
+        <ul>
+          <li>Scripts Python / Bash</li>
+          <li>Automação de tarefas</li>
+          <li>Web scraping simples</li>
+          <li>Entrega com documentação</li>
+        </ul>
+        <a href="#contact" class="price-cta outline">Solicitar →</a>
+      </div>
+
+      <div class="price-card featured reveal reveal-delay-1">
+        <div class="featured-badge">Popular</div>
+        <h3>Ferramenta Custom</h3>
+        <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">Desenvolvimento sob demanda</p>
+        <div class="price">R$ 800</div>
+        <div class="price-note">a partir de, por projeto</div>
+        <hr class="price-divider">
+        <ul>
+          <li>Levantamento de requisitos</li>
+          <li>Ferramenta de segurança / OSINT</li>
+          <li>Interface CLI ou Web</li>
+          <li>Código comentado e limpo</li>
+          <li>2 rodadas de revisão</li>
+        </ul>
+        <a href="#contact" class="price-cta">Contratar →</a>
+      </div>
+
+      <div class="price-card reveal reveal-delay-2">
+        <h3>Projeto Completo</h3>
+        <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">Sistemas complexos</p>
+        <div class="price">Sob consulta</div>
+        <div class="price-note">orçamento personalizado</div>
+        <hr class="price-divider">
+        <ul>
+          <li>Sistemas full-stack</li>
+          <li>Plataformas de análise</li>
+          <li>Integração com APIs externas</li>
+          <li>Deploy e manutenção</li>
+          <li>Suporte contínuo</li>
+        </ul>
+        <a href="#contact" class="price-cta outline">Negociar →</a>
+      </div>
+    </div>
+
+    <!-- INVESTIGAÇÃO -->
+    <div class="pricing-panel" id="tab-invest">
+      <div class="price-card reveal">
+        <h3>OSINT Básico</h3>
+        <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">Levantamento de dados públicos</p>
+        <div class="price">R$ 400</div>
+        <div class="price-note">entrega em 48h</div>
+        <hr class="price-divider">
+        <ul>
+          <li>Pesquisa em fontes abertas</li>
+          <li>1 pessoa ou empresa</li>
+          <li>Redes sociais e vazamentos</li>
+          <li>Relatório resumido</li>
+        </ul>
+        <a href="#contact" class="price-cta outline">Solicitar →</a>
+      </div>
+
+      <div class="price-card featured reveal reveal-delay-1">
+        <div class="featured-badge">Popular</div>
+        <h3>Investigação Digital</h3>
+        <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">Análise aprofundada e rastreamento</p>
+        <div class="price">R$ 1.000</div>
+        <div class="price-note">por caso</div>
+        <hr class="price-divider">
+        <ul>
+          <li>OSINT + SOCMINT avançado</li>
+          <li>Rastreamento de pegada digital</li>
+          <li>Análise de metadados</li>
+          <li>Verificação de identidade</li>
+          <li>Relatório completo com evidências</li>
+        </ul>
+        <a href="#contact" class="price-cta">Contratar →</a>
+      </div>
+
+      <div class="price-card reveal reveal-delay-2">
+        <h3>Due Diligence</h3>
+        <p style="font-size:0.85rem; color:var(--muted); margin-top:0.5rem;">Investigação corporativa profunda</p>
+        <div class="price">Sob consulta</div>
+        <div class="price-note">prazo a definir</div>
+        <hr class="price-divider">
+        <ul>
+          <li>Análise de empresas e sócios</li>
+          <li>Cruzamento de dados extenso</li>
+          <li>Histórico financeiro e jurídico</li>
+          <li>Relatório para uso legal</li>
+          <li>Confidencialidade total</li>
+        </ul>
+        <a href="#contact" class="price-cta outline">Negociar →</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="sep"></div>
+
+<!-- CONTACT -->
+<section id="contact" class="contact-section">
+  <div class="section-inner">
+    <div class="contact-grid">
+      <div>
+        <div class="section-label reveal">Contato</div>
+        <h2 class="section-title reveal reveal-delay-1">Vamos<br>trabalhar.</h2>
+        <p class="section-desc reveal reveal-delay-2">
+          Descreva seu caso ou projeto de forma geral. Respondo em até 24h com total discrição.
+        </p>
+      </div>
+
+      <div class="contact-btns reveal reveal-delay-2">
+        <a href="mailto:nridieydus524@gmail.com" class="contact-btn">
+          <div class="contact-btn-icon" style="background:rgba(0,245,160,0.1);">📧</div>
+          <div class="contact-btn-text">
+            <span class="contact-btn-label">Email</span>
+            <span class="contact-btn-value">nridieydus524@gmail.com</span>
+          </div>
+          <span class="contact-btn-arrow">→</span>
+        </a>
+
+        <a href="https://t.me/lllZer00lll" target="_blank" class="contact-btn">
+          <div class="contact-btn-icon" style="background:rgba(0,212,255,0.1);">✈️</div>
+          <div class="contact-btn-text">
+            <span class="contact-btn-label">Telegram</span>
+            <span class="contact-btn-value">@Zer00</span>
+          </div>
+          <span class="contact-btn-arrow">→</span>
+        </a>
+
+        <a href="https://discord.com" target="_blank" class="contact-btn">
+          <div class="contact-btn-icon" style="background:rgba(114,137,218,0.12);">💬</div>
+          <div class="contact-btn-text">
+            <span class="contact-btn-label">Discord</span>
+            <span class="contact-btn-value">0xc00000034</span>
+          </div>
+          <span class="contact-btn-arrow">→</span>
+        </a>
+
+        <a href="https://github.com/Algumapess04" target="_blank" class="contact-btn">
+          <div class="contact-btn-icon" style="background:rgba(255,255,255,0.06);">
+            <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.166 6.839 9.489.5.09.682-.218.682-.484 0-.236-.009-.866-.013-1.699-2.782.602-3.369-1.34-3.369-1.34-.455-1.157-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.833.091-.647.349-1.086.635-1.337-2.22-.251-4.555-1.111-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.254-.447-1.27.098-2.645 0 0 .84-.269 2.75 1.026A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.748-1.026 2.748-1.026.546 1.376.202 2.394.1 2.646.64.699 1.026 1.591 1.026 2.682 0 3.841-2.337 4.687-4.565 4.935.359.307.679.917.679 1.852 0 1.335-.012 2.415-.012 2.741 0 .269.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg>
+          </div>
+          <div class="contact-btn-text">
+            <span class="contact-btn-label">GitHub</span>
+            <span class="contact-btn-value">github.com/Zer00</span>
+          </div>
+          <span class="contact-btn-arrow">→</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <p><span>// Zer00</span> &nbsp;·&nbsp; Hack. Code. Investigate. &nbsp;·&nbsp; <span>2025</span></p>
+  <p style="margin-top:0.8rem; font-size:0.72rem;">Pagando bem, que mal tem?</p>
+</footer>
+
+<script>
+  // Custom cursor
+  const cursor = document.getElementById('cursor');
+  const ring = document.getElementById('cursorRing');
+  let mx = 0, my = 0, rx = 0, ry = 0;
+
+  document.addEventListener('mousemove', e => { mx = e.clientX; my = e.clientY; });
+
+  function animCursor() {
+    cursor.style.left = mx + 'px'; cursor.style.top = my + 'px';
+    rx += (mx - rx) * 0.12; ry += (my - ry) * 0.12;
+    ring.style.left = rx + 'px'; ring.style.top = ry + 'px';
+    requestAnimationFrame(animCursor);
+  }
+  animCursor();
+
+  document.querySelectorAll('a, button').forEach(el => {
+    el.addEventListener('mouseenter', () => { cursor.classList.add('hover'); ring.classList.add('hover'); });
+    el.addEventListener('mouseleave', () => { cursor.classList.remove('hover'); ring.classList.remove('hover'); });
+  });
+
+  // Intersection Observer — reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const obs = new IntersectionObserver(entries => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -60px 0px' });
+  reveals.forEach(el => obs.observe(el));
+
+  // Pricing tabs
+  function showTab(tab) {
+    document.querySelectorAll('.pricing-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + tab).classList.add('active');
+    event.target.classList.add('active');
+    // re-trigger reveals for newly shown cards
+    document.querySelectorAll('#tab-' + tab + ' .reveal').forEach(el => {
+      el.classList.remove('visible');
+      setTimeout(() => el.classList.add('visible'), 50);
+    });
+  }
+</script>
+</body>
+</html>
