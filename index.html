@@ -35,13 +35,10 @@ nav{position:fixed;top:0;left:0;right:0;z-index:500;display:flex;align-items:cen
 .nav-links a{color:var(--muted);text-decoration:none;font-size:.8rem;font-weight:500;letter-spacing:.07em;text-transform:uppercase;transition:color .2s}
 .nav-links a:hover{color:var(--text)}
 .nav-right{display:flex;align-items:center;gap:8px}
-
-/* Lang toggle */
 .lang-btn{background:rgba(255,255,255,.06);border:1px solid var(--border2);color:var(--muted);padding:7px 12px;border-radius:100px;font-family:var(--mono);font-size:.7rem;font-weight:600;cursor:pointer;letter-spacing:.08em;transition:all .2s;display:flex;align-items:center;gap:5px}
 .lang-btn:hover{background:rgba(255,255,255,.1);color:var(--text)}
 .lang-btn:active{transform:scale(.96)}
 .lang-flag{font-size:.85rem}
-
 .nav-cta{background:var(--red-v);color:#fff;padding:9px 20px;border-radius:100px;font-family:var(--font);font-size:.8rem;font-weight:700;text-decoration:none;letter-spacing:.02em;transition:background .2s,transform .15s,box-shadow .2s;white-space:nowrap;box-shadow:0 0 24px rgba(224,62,45,.25)}
 .nav-cta:hover{background:#e8493a;box-shadow:0 0 40px rgba(224,62,45,.4)}
 .nav-cta:active{transform:scale(.97)}
@@ -116,8 +113,7 @@ section{padding:88px 22px;position:relative}
 
 /* CERTIFICATIONS */
 #certs{background:var(--bg)}
-.certs-intro{display:flex;flex-direction:column;gap:8px;margin-bottom:52px}
-.cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px}
+.cert-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:52px}
 .cert-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px 24px;display:flex;flex-direction:column;align-items:center;text-align:center;gap:16px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s}
 .cert-card:hover{border-color:var(--red-b);transform:translateY(-4px);box-shadow:0 20px 50px rgba(0,0,0,.4),0 0 30px rgba(192,57,43,.08)}
 .cert-card::after{content:'';position:absolute;inset:0;background:radial-gradient(ellipse 60% 50% at 50% 0%,rgba(192,57,43,.06),transparent 70%);opacity:0;transition:opacity .4s}
@@ -153,26 +149,32 @@ section{padding:88px 22px;position:relative}
 .tab:not(.on):active{background:rgba(255,255,255,.05);color:var(--text)}
 .panel{display:none}
 .panel.on{display:grid;grid-template-columns:1fr;gap:16px;animation:fadeIn .3s ease}
-.pc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px;position:relative;overflow:hidden;transition:border-color .3s,transform .3s,box-shadow .3s}
-.pc:hover{border-color:var(--border2);transform:translateY(-3px);box-shadow:0 20px 50px rgba(0,0,0,.35)}
+
+/* Price card — flex column so button always sticks to bottom */
+.pc{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:28px;position:relative;overflow:hidden;transition:border-color .3s,box-shadow .3s;display:flex;flex-direction:column}
+.pc:hover{border-color:var(--border2);box-shadow:0 0 0 1px var(--border2),0 20px 50px rgba(0,0,0,.45)}
 .pc.ft{border-color:var(--red-b);background:linear-gradient(135deg,rgba(192,57,43,.09) 0%,var(--surface) 55%)}
-.pc.ft:hover{box-shadow:0 24px 60px rgba(192,57,43,.15)}
+.pc.ft:hover{border-color:rgba(192,57,43,.5);box-shadow:0 0 0 1px rgba(192,57,43,.35),0 20px 50px rgba(192,57,43,.18)}
 .fb{position:absolute;top:18px;right:18px;background:var(--red-v);color:#fff;font-size:.65rem;font-weight:700;padding:4px 11px;border-radius:100px;letter-spacing:.06em;text-transform:uppercase}
 .pc h3{font-size:1.1rem;font-weight:800;margin-bottom:6px;letter-spacing:-.02em}
 .pd{font-size:.82rem;color:var(--muted)}
 .pv{font-size:2.1rem;font-weight:800;letter-spacing:-.04em;color:var(--red-v);margin:14px 0 4px}
 .pn{font-size:.75rem;color:var(--muted);margin-bottom:18px}
 hr.dv{border:none;border-top:1px solid var(--border);margin:18px 0}
+.pc-features{flex:1}
 .pc ul{list-style:none;display:flex;flex-direction:column;gap:10px}
 .pc li{font-size:.85rem;color:var(--muted);display:flex;align-items:flex-start;gap:10px;line-height:1.5}
 .ar{color:var(--red-v);font-family:var(--mono);font-size:.75rem;flex-shrink:0;margin-top:2px}
-.pcta{display:block;text-align:center;margin-top:24px;padding:14px;border-radius:var(--rs);font-size:.9rem;font-weight:700;text-decoration:none;cursor:pointer;border:none;width:100%;font-family:var(--font);transition:all .2s;letter-spacing:.02em}
+.pc-btn-wrap{margin-top:24px}
+
+/* ─── BUTTON FIX: no transform/scale on Contratar & Pagar ─── */
+.pcta{display:block;text-align:center;padding:14px;border-radius:var(--rs);font-size:.9rem;font-weight:700;text-decoration:none;cursor:pointer;border:none;width:100%;font-family:var(--font);letter-spacing:.02em;transition:background .2s;transform:none!important;animation:none!important}
 .pcta.ol{border:1px solid var(--border2);color:var(--text);background:transparent}
 .pcta.ol:hover{border-color:rgba(255,255,255,.3);background:rgba(255,255,255,.04)}
 .pcta.ol:active{background:rgba(255,255,255,.07)}
-.pcta.sl,.pcta.py{background:var(--red-v);color:#fff;box-shadow:0 0 30px rgba(192,57,43,.25)}
-.pcta.sl:hover,.pcta.py:hover{background:#e8493a;box-shadow:0 0 50px rgba(192,57,43,.4)}
-.pcta.sl:active,.pcta.py:active{opacity:.87;transform:scale(.99)}
+.pcta.sl,.pcta.py{background:var(--red-v);color:#fff}
+.pcta.sl:hover,.pcta.py:hover{background:#e8493a}
+.pcta.sl:active,.pcta.py:active{background:#c0392b}
 
 /* CONTACT */
 #contact{background:var(--bg2)}
@@ -187,6 +189,41 @@ hr.dv{border:none;border-top:1px solid var(--border);margin:18px 0}
 .cv{font-size:.9rem;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .ca{margin-left:auto;color:var(--dimmed);flex-shrink:0;transition:transform .2s,color .2s}
 .cb:hover .ca{transform:translateX(4px);color:var(--red-v)}
+
+/* FEEDBACK */
+#feedback{background:var(--bg)}
+.fb-grid{display:grid;grid-template-columns:1fr;gap:32px;margin-top:52px}
+.fb-form{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:32px}
+.fb-stars{display:flex;gap:8px;margin-bottom:24px}
+.star{font-size:1.8rem;cursor:pointer;transition:transform .15s;line-height:1;color:var(--dimmed);filter:grayscale(1);user-select:none}
+.star.lit{color:#f5a623;filter:none}
+.star:hover{transform:scale(1.15)}
+.fb-name-row{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:16px}
+.fb-input{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:12px 16px;border-radius:var(--rs);font-family:var(--font);font-size:.9rem;transition:border-color .2s;-webkit-appearance:none}
+.fb-input:focus{outline:none;border-color:var(--red-b)}
+.fb-input::placeholder{color:var(--dimmed)}
+.fb-textarea{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:12px 16px;border-radius:var(--rs);font-family:var(--font);font-size:.9rem;resize:none;height:110px;line-height:1.6;transition:border-color .2s;-webkit-appearance:none;margin-bottom:16px}
+.fb-textarea:focus{outline:none;border-color:var(--red-b)}
+.fb-textarea::placeholder{color:var(--dimmed)}
+.fb-submit{width:100%;padding:14px;background:var(--red-v);color:#fff;border:none;border-radius:var(--rs);font-family:var(--font);font-size:.95rem;font-weight:700;cursor:pointer;letter-spacing:.02em;transition:background .2s,box-shadow .2s;box-shadow:0 0 28px rgba(192,57,43,.22)}
+.fb-submit:hover{background:#e8493a;box-shadow:0 0 44px rgba(192,57,43,.38)}
+.fb-submit:active{opacity:.88}
+.fb-submit:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
+.fb-success{display:none;text-align:center;padding:28px 0}
+.fb-success-ico{font-size:2.5rem;margin-bottom:12px}
+.fb-success-title{font-size:1.1rem;font-weight:800;letter-spacing:-.02em;margin-bottom:6px}
+.fb-success-desc{font-size:.85rem;color:var(--muted);line-height:1.6}
+.fb-wall{display:flex;flex-direction:column;gap:14px}
+.review-card{background:var(--surface);border:1px solid var(--border);border-radius:var(--r);padding:22px 24px;transition:border-color .3s}
+.review-card:hover{border-color:var(--border2)}
+.review-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;margin-bottom:10px}
+.review-author{font-size:.88rem;font-weight:700;letter-spacing:-.01em}
+.review-date{font-family:var(--mono);font-size:.62rem;color:var(--dimmed);letter-spacing:.06em;margin-top:2px}
+.review-stars{display:flex;gap:3px;font-size:.9rem}
+.review-text{font-size:.85rem;color:var(--muted);line-height:1.7}
+.review-service{display:inline-block;margin-top:10px;font-family:var(--mono);font-size:.6rem;color:var(--red-v);background:var(--red-dim);border:1px solid var(--red-b);padding:2px 9px;border-radius:4px;letter-spacing:.07em;text-transform:uppercase}
+.fb-empty{text-align:center;padding:32px;color:var(--dimmed);font-family:var(--mono);font-size:.78rem;letter-spacing:.08em}
+.fb-rating-label{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:10px;display:block}
 
 /* FOOTER */
 footer{border-top:1px solid var(--border);padding:44px 22px calc(44px + var(--sb));text-align:center;background:var(--bg)}
@@ -210,19 +247,14 @@ footer p+p{margin-top:5px}
 .mtitle{font-size:1.15rem;font-weight:800;letter-spacing:-.03em}
 .msub{font-size:.82rem;color:var(--muted);margin-top:3px}
 .mbody{padding:0 24px}
-
-/* Security banner on modal */
 .sec-banner{background:rgba(0,200,255,.05);border-bottom:1px solid rgba(0,200,255,.12);padding:9px 24px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.65rem;color:rgba(0,200,255,.7);letter-spacing:.05em}
 .ustr{background:rgba(192,57,43,.07);border-bottom:1px solid rgba(192,57,43,.12);padding:9px 24px;margin-bottom:2px;display:flex;align-items:center;gap:8px;font-family:var(--mono);font-size:.67rem;color:var(--red-v);letter-spacing:.05em}
 .udot{width:6px;height:6px;background:var(--red-v);border-radius:50%;animation:blink 1.5s infinite}
-
 .ord{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:18px;margin-bottom:20px}
 .ordrow{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
 .oname{font-size:.9rem;font-weight:700}
 .odesc{font-size:.75rem;color:var(--muted);margin-top:3px}
 .oprice{font-size:1.45rem;font-weight:800;color:var(--red-v);letter-spacing:-.03em;white-space:nowrap}
-
-/* Form */
 .fs{margin-bottom:20px}
 .fl2{font-family:var(--mono);font-size:.65rem;color:var(--muted);letter-spacing:.12em;text-transform:uppercase;margin-bottom:8px;display:block}
 .fi,.fta{width:100%;background:var(--bg2);border:1px solid var(--border);color:var(--text);padding:13px 16px;border-radius:var(--rs);font-family:var(--font);font-size:.92rem;transition:border-color .2s;-webkit-appearance:none;appearance:none}
@@ -231,16 +263,14 @@ footer p+p{margin-top:5px}
 .fi.valid{border-color:rgba(0,210,120,.5)!important}
 .fi.invalid{border-color:rgba(224,62,45,.7)!important}
 .field-wrap{position:relative}
-.field-badge{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:.6rem;font-weight:600;letter-spacing:.08em;padding:3px 8px;border-radius:4px;pointer-events:none;transition:opacity .2s}
+.field-badge{position:absolute;right:12px;top:50%;transform:translateY(-50%);font-family:var(--mono);font-size:.6rem;font-weight:600;letter-spacing:.08em;padding:3px 8px;border-radius:4px;pointer-events:none}
 .field-badge.type-email{background:rgba(0,200,255,.12);color:var(--blue);border:1px solid rgba(0,200,255,.25)}
 .field-badge.type-telegram{background:rgba(0,200,255,.12);color:var(--blue);border:1px solid rgba(0,200,255,.25)}
 .field-badge.type-discord{background:rgba(114,137,218,.15);color:#7289da;border:1px solid rgba(114,137,218,.3)}
 .field-badge.type-invalid{background:rgba(224,62,45,.1);color:var(--red-v);border:1px solid var(--red-b)}
-.field-err{font-family:var(--mono);font-size:.68rem;color:var(--red-v);margin-top:6px;display:none;padding-left:2px;animation:fadeIn .2s ease}
+.field-err{font-family:var(--mono);font-size:.68rem;color:var(--red-v);margin-top:6px;display:none;padding-left:2px}
 .field-err.show{display:block}
-/* honeypot - hidden from humans */
-.hp-field{position:absolute;left:-9999px;top:-9999px;opacity:0;pointer-events:none;tab-index:-1}
-
+.hp-field{position:absolute;left:-9999px;top:-9999px;opacity:0;pointer-events:none}
 .pms{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:20px}
 .pm{background:var(--bg2);border:1px solid var(--border);border-radius:var(--rs);padding:14px;text-align:center;cursor:pointer;transition:all .2s;-webkit-tap-highlight-color:transparent}
 .pm.sel{border-color:var(--red-b);background:var(--red-dim)}
@@ -253,17 +283,14 @@ footer p+p{margin-top:5px}
 .pcp{background:var(--red-v);color:#fff;border:none;padding:6px 13px;border-radius:6px;font-size:.72rem;font-weight:700;cursor:pointer;white-space:nowrap;font-family:var(--font);flex-shrink:0;transition:opacity .2s}
 .pcp:active{opacity:.8}
 .pnote{font-size:.75rem;color:var(--muted);margin-top:10px;line-height:1.6}
-
-/* Rate limit warning */
 .rate-warn{background:rgba(255,200,0,.06);border:1px solid rgba(255,200,0,.2);border-radius:var(--rs);padding:12px 16px;font-family:var(--mono);font-size:.72rem;color:rgba(255,200,0,.85);margin-bottom:16px;display:none}
 .rate-warn.show{display:block}
-
 .step{display:none}
 .step.active{display:block}
-.cbm{width:100%;padding:16px;background:var(--red-v);color:#fff;border:none;border-radius:var(--rs);font-family:var(--font);font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s,box-shadow .2s,transform .15s;box-shadow:0 0 30px rgba(192,57,43,.25)}
-.cbm:hover{background:#e8493a;box-shadow:0 0 50px rgba(192,57,43,.4)}
-.cbm:active{transform:scale(.99);opacity:.88}
-.cbm:disabled{opacity:.4;cursor:not-allowed;transform:none;box-shadow:none}
+.cbm{width:100%;padding:16px;background:var(--red-v);color:#fff;border:none;border-radius:var(--rs);font-family:var(--font);font-size:1rem;font-weight:700;cursor:pointer;letter-spacing:.02em;display:flex;align-items:center;justify-content:center;gap:8px;transition:background .2s,box-shadow .2s;box-shadow:0 0 28px rgba(192,57,43,.22)}
+.cbm:hover{background:#e8493a;box-shadow:0 0 44px rgba(192,57,43,.38)}
+.cbm:active{opacity:.88}
+.cbm:disabled{opacity:.4;cursor:not-allowed;box-shadow:none}
 .bkb{width:100%;padding:12px;background:transparent;color:var(--muted);border:1px solid var(--border);border-radius:var(--rs);font-family:var(--font);font-size:.88rem;font-weight:500;cursor:pointer;margin-top:10px;transition:border-color .2s,color .2s}
 .bkb:hover{border-color:var(--border2);color:var(--text)}
 .succ{text-align:center;padding:44px 24px 36px}
@@ -281,6 +308,8 @@ footer p+p{margin-top:5px}
   .cert-grid{grid-template-columns:repeat(4,1fr)}
   .bento{grid-template-columns:1fr 1fr}
   .panel.on{grid-template-columns:1fr 1fr}
+  .fb-grid{grid-template-columns:1fr 1fr;align-items:start}
+  .fb-name-row{grid-template-columns:1fr 1fr}
   .modal{border-radius:28px;margin:auto;max-height:90svh}
   .ovl{align-items:center}
 }
@@ -304,18 +333,17 @@ footer p+p{margin-top:5px}
 </head>
 <body>
 
-<!-- MOBILE MENU -->
 <div class="mob-menu" id="mobMenu">
   <a href="#services" onclick="closeMenu()" data-i18n="nav.services">Serviços</a>
   <a href="#certs" onclick="closeMenu()" data-i18n="nav.certs">Certificações</a>
   <a href="#about" onclick="closeMenu()" data-i18n="nav.about">Sobre</a>
   <a href="#pricing" onclick="closeMenu()" data-i18n="nav.pricing">Preços</a>
   <a href="#contact" onclick="closeMenu()" data-i18n="nav.contact">Contato</a>
+  <a href="#feedback" onclick="closeMenu()" data-i18n="nav.feedback">Feedback</a>
   <a href="#contact" class="mc" onclick="closeMenu()" data-i18n="nav.hire">Contratar →</a>
   <button class="mob-lang" onclick="toggleLang();closeMenu()" id="mobLangBtn">🇺🇸 English</button>
 </div>
 
-<!-- NAV -->
 <nav>
   <a class="nav-logo" href="#"><span class="slash">//</span> Zer00</a>
   <ul class="nav-links">
@@ -324,25 +352,20 @@ footer p+p{margin-top:5px}
     <li><a href="#about" data-i18n="nav.about">Sobre</a></li>
     <li><a href="#pricing" data-i18n="nav.pricing">Preços</a></li>
     <li><a href="#contact" data-i18n="nav.contact">Contato</a></li>
+    <li><a href="#feedback" data-i18n="nav.feedback">Feedback</a></li>
   </ul>
   <div class="nav-right">
     <button class="lang-btn" onclick="toggleLang()" id="langBtn"><span class="lang-flag">🇺🇸</span> EN</button>
     <a href="#contact" class="nav-cta" data-i18n="nav.hire">Contratar</a>
-    <button class="hbg" id="hbg" onclick="toggleMenu()" aria-label="Menu">
-      <span></span><span></span><span></span>
-    </button>
+    <button class="hbg" id="hbg" onclick="toggleMenu()" aria-label="Menu"><span></span><span></span><span></span></button>
   </div>
 </nav>
 
-<!-- HERO -->
 <section class="hero">
   <div class="h-bg"></div><div class="h-grid"></div>
   <div class="orb o1"></div><div class="orb o2"></div><div class="orb o3"></div>
   <div class="badge"><span class="dot"></span> <span data-i18n="hero.badge">Disponível para projetos</span></div>
-  <h1>
-    <span class="hm">Zer00</span>
-    <span class="hs"><em>Hack.</em> Code. <em>Investigate.</em></span>
-  </h1>
+  <h1><span class="hm">Zer00</span><span class="hs"><em>Hack.</em> Code. <em>Investigate.</em></span></h1>
   <p class="hero-p" data-i18n="hero.sub">Segurança ofensiva, desenvolvimento e investigação privada. Onde outros param na superfície — eu vou mais fundo.</p>
   <div class="hero-actions">
     <a href="#pricing" class="bp" data-i18n="hero.cta">Ver Serviços →</a>
@@ -356,140 +379,37 @@ footer p+p{margin-top:5px}
 
 <div class="sep"></div>
 
-<!-- SERVICES -->
 <section id="services">
   <div class="inn">
     <div class="ey rv" data-i18n="services.eyebrow">Especialidades</div>
     <h2 class="st rv d1" data-i18n="services.title">Três áreas.<br>Uma missão.</h2>
     <p class="sd rv d2" data-i18n="services.desc">Atuação técnica e discreta nos campos onde segurança, código e investigação se cruzam.</p>
     <div class="sg">
-      <div class="sc rv d1" style="--cc:#c0392b">
-        <span class="bn">01</span><div class="si">⚡</div>
-        <h3 data-i18n="services.s1.title">Hacking & Segurança</h3>
-        <p data-i18n="services.s1.desc">Testes de intrusão, análise de vulnerabilidades, engenharia reversa e hardening. Pentest ético com relatório completo.</p>
-        <div class="tr"><span class="tg">pentest</span><span class="tg">OSINT</span><span class="tg">RE</span><span class="tg">CTF</span><span class="tg">exploit dev</span></div>
-      </div>
-      <div class="sc rv d2" style="--cc:#00c8ff">
-        <span class="bn">02</span><div class="si">🖥</div>
-        <h3 data-i18n="services.s2.title">Programação & Dev</h3>
-        <p data-i18n="services.s2.desc">Desenvolvimento de ferramentas de segurança, automação, scripts e sistemas customizados. Do conceito ao deploy.</p>
-        <div class="tr"><span class="tg">Python</span><span class="tg">C/C++</span><span class="tg">Bash</span><span class="tg">Go</span><span class="tg">scraping</span></div>
-      </div>
-      <div class="sc rv d3" style="--cc:#ff3d6b">
-        <span class="bn">03</span><div class="si">🔍</div>
-        <h3 data-i18n="services.s3.title">Investigação Privada</h3>
-        <p data-i18n="services.s3.desc">Coleta e análise de dados abertos (OSINT), rastreamento digital, verificação de identidades e due diligence técnica.</p>
-        <div class="tr"><span class="tg">OSINT</span><span class="tg">SOCMINT</span><span class="tg">forense</span><span class="tg">metadados</span></div>
-      </div>
+      <div class="sc rv d1" style="--cc:#c0392b"><span class="bn">01</span><div class="si">⚡</div><h3 data-i18n="services.s1.title">Hacking & Segurança</h3><p data-i18n="services.s1.desc">Testes de intrusão, análise de vulnerabilidades, engenharia reversa e hardening. Pentest ético com relatório completo.</p><div class="tr"><span class="tg">pentest</span><span class="tg">OSINT</span><span class="tg">RE</span><span class="tg">CTF</span><span class="tg">exploit dev</span></div></div>
+      <div class="sc rv d2" style="--cc:#00c8ff"><span class="bn">02</span><div class="si">🖥</div><h3 data-i18n="services.s2.title">Programação & Dev</h3><p data-i18n="services.s2.desc">Desenvolvimento de ferramentas de segurança, automação, scripts e sistemas customizados. Do conceito ao deploy.</p><div class="tr"><span class="tg">Python</span><span class="tg">C/C++</span><span class="tg">Bash</span><span class="tg">Go</span><span class="tg">scraping</span></div></div>
+      <div class="sc rv d3" style="--cc:#ff3d6b"><span class="bn">03</span><div class="si">🔍</div><h3 data-i18n="services.s3.title">Investigação Privada</h3><p data-i18n="services.s3.desc">Coleta e análise de dados abertos (OSINT), rastreamento digital, verificação de identidades e due diligence técnica.</p><div class="tr"><span class="tg">OSINT</span><span class="tg">SOCMINT</span><span class="tg">forense</span><span class="tg">metadados</span></div></div>
     </div>
   </div>
 </section>
 
 <div class="sep"></div>
 
-<!-- CERTIFICATIONS -->
 <section id="certs">
   <div class="inn">
     <div class="ey rv" data-i18n="certs.eyebrow">Certificações</div>
     <h2 class="st rv d1" data-i18n="certs.title">Credenciais<br>verificadas.</h2>
     <p class="sd rv d2" data-i18n="certs.desc">Formação técnica reconhecida internacionalmente nas áreas de segurança ofensiva e análise.</p>
-    <div class="cert-grid" style="margin-top:52px">
-
-      <!-- CompTIA Security+ -->
-      <div class="cert-card rv d1">
-        <div class="cert-badge-wrap">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="46" fill="white" stroke="#ccc" stroke-width="2.5"/>
-            <path d="M50 10 A40 40 0 0 1 50 90 A40 40 0 0 1 50 10" fill="none" stroke="#ccc" stroke-width="2"/>
-            <rect x="18" y="40" width="64" height="20" rx="3" fill="#b71c1c"/>
-            <text x="50" y="54" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="white">Security+</text>
-            <text x="50" y="32" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="#b71c1c">CompTIA</text>
-            <text x="50" y="78" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="#888">🔒</text>
-          </svg>
-        </div>
-        <div class="cert-name">CompTIA Security+</div>
-        <div class="cert-issuer">CompTIA</div>
-        <div class="cert-desc" data-i18n="certs.secplus.desc">Fundamentos de segurança, criptografia, ameaças e gerenciamento de riscos.</div>
-        <div class="cert-verified" data-i18n="certs.verified">Verificado</div>
-      </div>
-
-      <!-- CEH -->
-      <div class="cert-card rv d2">
-        <div class="cert-badge-wrap">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="46" fill="white" stroke="#c62828" stroke-width="3.5"/>
-            <rect x="10" y="10" width="22" height="22" rx="3" fill="#c62828"/>
-            <rect x="13" y="13" width="16" height="16" rx="2" fill="white"/>
-            <rect x="15" y="15" width="12" height="12" rx="1" fill="#c62828"/>
-            <!-- hat -->
-            <ellipse cx="50" cy="42" rx="18" ry="5" fill="#666"/>
-            <rect x="35" y="28" width="30" height="15" rx="8" fill="#666"/>
-            <!-- face -->
-            <ellipse cx="50" cy="52" rx="11" ry="9" fill="#c62828"/>
-            <!-- glasses -->
-            <rect x="40" y="49" width="8" height="5" rx="2" fill="white" stroke="#555" stroke-width=".8"/>
-            <rect x="52" y="49" width="8" height="5" rx="2" fill="white" stroke="#555" stroke-width=".8"/>
-            <line x1="48" y1="51" x2="52" y2="51" stroke="#555" stroke-width=".8"/>
-            <!-- body -->
-            <path d="M36 62 Q50 58 64 62 L64 72 Q50 68 36 72Z" fill="#666"/>
-            <text x="50" y="86" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#555">CEH</text>
-          </svg>
-        </div>
-        <div class="cert-name">CEH</div>
-        <div class="cert-issuer">EC-Council</div>
-        <div class="cert-desc" data-i18n="certs.ceh.desc">Certified Ethical Hacker — técnicas de hacking ético e testes de intrusão.</div>
-        <div class="cert-verified" data-i18n="certs.verified">Verificado</div>
-      </div>
-
-      <!-- OSCP -->
-      <div class="cert-card rv d3">
-        <div class="cert-badge-wrap">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <!-- Hexagon -->
-            <polygon points="50,4 93,27 93,73 50,96 7,73 7,27" fill="#e65100"/>
-            <polygon points="50,10 87,30 87,70 50,90 13,70 13,30" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/>
-            <rect x="18" y="42" width="64" height="18" rx="2" fill="rgba(0,0,0,0.25)"/>
-            <text x="50" y="55" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="white">OSCP</text>
-            <text x="50" y="30" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" font-weight="bold" fill="rgba(255,255,255,0.85)" letter-spacing="1">OFFENSIVE</text>
-            <text x="50" y="38" text-anchor="middle" font-family="Arial,sans-serif" font-size="5.5" fill="rgba(255,255,255,0.7)" letter-spacing="0.5">security</text>
-            <!-- small animal icon -->
-            <path d="M44 70 Q50 65 56 70 Q58 75 56 78 Q50 80 44 78 Q42 75 44 70Z" fill="rgba(255,255,255,0.25)"/>
-          </svg>
-        </div>
-        <div class="cert-name">OSCP</div>
-        <div class="cert-issuer">Offensive Security</div>
-        <div class="cert-desc" data-i18n="certs.oscp.desc">Offensive Security Certified Professional — pentest avançado em ambiente real.</div>
-        <div class="cert-verified" data-i18n="certs.verified">Verificado</div>
-      </div>
-
-      <!-- CompTIA CySA+ -->
-      <div class="cert-card rv d4">
-        <div class="cert-badge-wrap">
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
-            <circle cx="50" cy="50" r="46" fill="white" stroke="#ccc" stroke-width="2.5"/>
-            <path d="M50 10 A40 40 0 0 1 50 90 A40 40 0 0 1 50 10" fill="none" stroke="#ccc" stroke-width="2"/>
-            <rect x="18" y="40" width="64" height="20" rx="3" fill="#b71c1c"/>
-            <text x="50" y="54" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="white">CySA+</text>
-            <text x="50" y="32" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="#b71c1c">CompTIA</text>
-            <!-- shield + magnifier -->
-            <path d="M47 68 L50 64 L53 68 L50 76Z" fill="#ccc"/>
-            <circle cx="50" cy="72" r="3" fill="none" stroke="#ccc" stroke-width="1.2"/>
-            <line x1="52" y1="74" x2="54" y2="76" stroke="#ccc" stroke-width="1.2"/>
-          </svg>
-        </div>
-        <div class="cert-name">CompTIA CySA+</div>
-        <div class="cert-issuer">CompTIA</div>
-        <div class="cert-desc" data-i18n="certs.cysa.desc">Análise de segurança cibernética, threat hunting e resposta a incidentes.</div>
-        <div class="cert-verified" data-i18n="certs.verified">Verificado</div>
-      </div>
-
+    <div class="cert-grid">
+      <div class="cert-card rv d1"><div class="cert-badge-wrap"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="46" fill="white" stroke="#ccc" stroke-width="2.5"/><path d="M50 10 A40 40 0 0 1 50 90 A40 40 0 0 1 50 10" fill="none" stroke="#ccc" stroke-width="2"/><rect x="18" y="40" width="64" height="20" rx="3" fill="#b71c1c"/><text x="50" y="54" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="white">Security+</text><text x="50" y="32" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="#b71c1c">CompTIA</text><text x="50" y="78" text-anchor="middle" font-family="Arial,sans-serif" font-size="7" fill="#888">🔒</text></svg></div><div class="cert-name">CompTIA Security+</div><div class="cert-issuer">CompTIA</div><div class="cert-desc" data-i18n="certs.secplus.desc">Fundamentos de segurança, criptografia, ameaças e gerenciamento de riscos.</div><div class="cert-verified" data-i18n="certs.verified">Verificado</div></div>
+      <div class="cert-card rv d2"><div class="cert-badge-wrap"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="46" fill="white" stroke="#c62828" stroke-width="3.5"/><rect x="10" y="10" width="22" height="22" rx="3" fill="#c62828"/><rect x="13" y="13" width="16" height="16" rx="2" fill="white"/><rect x="15" y="15" width="12" height="12" rx="1" fill="#c62828"/><ellipse cx="50" cy="42" rx="18" ry="5" fill="#666"/><rect x="35" y="28" width="30" height="15" rx="8" fill="#666"/><ellipse cx="50" cy="52" rx="11" ry="9" fill="#c62828"/><rect x="40" y="49" width="8" height="5" rx="2" fill="white" stroke="#555" stroke-width=".8"/><rect x="52" y="49" width="8" height="5" rx="2" fill="white" stroke="#555" stroke-width=".8"/><line x1="48" y1="51" x2="52" y2="51" stroke="#555" stroke-width=".8"/><path d="M36 62 Q50 58 64 62 L64 72 Q50 68 36 72Z" fill="#666"/><text x="50" y="86" text-anchor="middle" font-family="Arial,sans-serif" font-size="10" font-weight="bold" fill="#555">CEH</text></svg></div><div class="cert-name">CEH</div><div class="cert-issuer">EC-Council</div><div class="cert-desc" data-i18n="certs.ceh.desc">Certified Ethical Hacker — técnicas de hacking ético e testes de intrusão.</div><div class="cert-verified" data-i18n="certs.verified">Verificado</div></div>
+      <div class="cert-card rv d3"><div class="cert-badge-wrap"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><polygon points="50,4 93,27 93,73 50,96 7,73 7,27" fill="#e65100"/><polygon points="50,10 87,30 87,70 50,90 13,70 13,30" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="1.5"/><rect x="18" y="42" width="64" height="18" rx="2" fill="rgba(0,0,0,0.25)"/><text x="50" y="55" text-anchor="middle" font-family="Arial,sans-serif" font-size="14" font-weight="bold" fill="white">OSCP</text><text x="50" y="30" text-anchor="middle" font-family="Arial,sans-serif" font-size="6" font-weight="bold" fill="rgba(255,255,255,0.85)" letter-spacing="1">OFFENSIVE</text><text x="50" y="38" text-anchor="middle" font-family="Arial,sans-serif" font-size="5.5" fill="rgba(255,255,255,0.7)" letter-spacing="0.5">security</text><path d="M44 70 Q50 65 56 70 Q58 75 56 78 Q50 80 44 78 Q42 75 44 70Z" fill="rgba(255,255,255,0.25)"/></svg></div><div class="cert-name">OSCP</div><div class="cert-issuer">Offensive Security</div><div class="cert-desc" data-i18n="certs.oscp.desc">Offensive Security Certified Professional — pentest avançado em ambiente real.</div><div class="cert-verified" data-i18n="certs.verified">Verificado</div></div>
+      <div class="cert-card rv d4"><div class="cert-badge-wrap"><svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg"><circle cx="50" cy="50" r="46" fill="white" stroke="#ccc" stroke-width="2.5"/><path d="M50 10 A40 40 0 0 1 50 90 A40 40 0 0 1 50 10" fill="none" stroke="#ccc" stroke-width="2"/><rect x="18" y="40" width="64" height="20" rx="3" fill="#b71c1c"/><text x="50" y="54" text-anchor="middle" font-family="Arial,sans-serif" font-size="11" font-weight="bold" fill="white">CySA+</text><text x="50" y="32" text-anchor="middle" font-family="Arial,sans-serif" font-size="8" font-weight="bold" fill="#b71c1c">CompTIA</text><path d="M47 68 L50 64 L53 68 L50 76Z" fill="#ccc"/><circle cx="50" cy="72" r="3" fill="none" stroke="#ccc" stroke-width="1.2"/><line x1="52" y1="74" x2="54" y2="76" stroke="#ccc" stroke-width="1.2"/></svg></div><div class="cert-name">CompTIA CySA+</div><div class="cert-issuer">CompTIA</div><div class="cert-desc" data-i18n="certs.cysa.desc">Análise de segurança cibernética, threat hunting e resposta a incidentes.</div><div class="cert-verified" data-i18n="certs.verified">Verificado</div></div>
     </div>
   </div>
 </section>
 
 <div class="sep"></div>
 
-<!-- ABOUT -->
 <section id="about">
   <div class="inn">
     <div class="ey rv" data-i18n="about.eyebrow">Sobre</div>
@@ -508,23 +428,13 @@ footer p+p{margin-top:5px}
       <div class="bc rv d2"><div class="sv">∞</div><div class="sl2" data-i18n="about.stat1">Dados analisados</div></div>
       <div class="bc rv d3"><div class="sv">0</div><div class="sl2" data-i18n="about.stat2">Brechas deixadas</div></div>
       <div class="bc rv d2"><div class="sv">100%</div><div class="sl2" data-i18n="about.stat3">Discrição garantida</div></div>
-      <div class="bc rv d3">
-        <div class="tools">
-          <div class="th">// ferramentas</div>
-          <div>Kali Linux · Burp Suite</div>
-          <div>Metasploit · Wireshark</div>
-          <div>Maltego · Shodan</div>
-          <div>Ghidra · IDA Pro</div>
-          <div>nmap · sqlmap</div>
-        </div>
-      </div>
+      <div class="bc rv d3"><div class="tools"><div class="th">// ferramentas</div><div>Kali Linux · Burp Suite</div><div>Metasploit · Wireshark</div><div>Maltego · Shodan</div><div>Ghidra · IDA Pro</div><div>nmap · sqlmap</div></div></div>
     </div>
   </div>
 </section>
 
 <div class="sep"></div>
 
-<!-- PRICING -->
 <section id="pricing">
   <div class="inn">
     <div class="ey rv" data-i18n="pricing.eyebrow">Serviços & Preços</div>
@@ -536,133 +446,130 @@ footer p+p{margin-top:5px}
       <button class="tab" onclick="showTab('invest',this)">🔍 <span data-i18n="pricing.tab3">Investigação</span></button>
     </div>
 
-    <!-- HACKING -->
     <div class="panel on" id="tab-hacking">
       <div class="pc">
         <h3 data-i18n="p.h1.name">Scan & Relatório</h3><p class="pd" data-i18n="p.h1.desc">Análise de vulnerabilidades básica</p>
         <div class="pv">R$ 350</div><div class="pn" data-i18n="p.h1.note">entrega em até 48h · 1 alvo</div>
         <hr class="dv">
-        <ul>
+        <div class="pc-features"><ul>
           <li><span class="ar">→</span><span data-i18n="p.h1.f1">Scan de portas e serviços</span></li>
           <li><span class="ar">→</span><span data-i18n="p.h1.f2">Identificação de CVEs públicas</span></li>
           <li><span class="ar">→</span><span data-i18n="p.h1.f3">Relatório em PDF detalhado</span></li>
           <li><span class="ar">→</span><span data-i18n="p.h1.f4">1 alvo / domínio</span></li>
-        </ul>
-        <button class="pcta py" onclick="openPay('Scan & Relatório','R$ 350','Análise de vulnerabilidades com relatório PDF. Entrega em 48h.')" data-i18n="p.btn.pay">Contratar & Pagar →</button>
+        </ul></div>
+        <div class="pc-btn-wrap"><button class="pcta py" onclick="openPay('Scan &amp; Relatório','R$ 350','Análise de vulnerabilidades com relatório PDF. Entrega em 48h.')" data-i18n="p.btn.pay">Contratar &amp; Pagar →</button></div>
       </div>
       <div class="pc ft">
         <div class="fb" data-i18n="p.popular">Popular</div>
         <h3 data-i18n="p.h2.name">Pentest Completo</h3><p class="pd" data-i18n="p.h2.desc">Intrusão controlada e documentada</p>
         <div class="pv">R$ 1.200</div><div class="pn" data-i18n="p.h2.note">entrega em até 7 dias · 3 alvos</div>
         <hr class="dv">
-        <ul>
+        <div class="pc-features"><ul>
           <li><span class="ar">→</span><span data-i18n="p.h2.f1">Reconhecimento (OSINT + ativo)</span></li>
           <li><span class="ar">→</span><span data-i18n="p.h2.f2">Exploração de vulnerabilidades</span></li>
           <li><span class="ar">→</span><span data-i18n="p.h2.f3">Escalada de privilégios</span></li>
           <li><span class="ar">→</span><span data-i18n="p.h2.f4">Relatório executivo + técnico</span></li>
           <li><span class="ar">→</span><span data-i18n="p.h2.f5">Até 3 alvos</span></li>
           <li><span class="ar">→</span><span data-i18n="p.h2.f6">Recomendações de mitigação</span></li>
-        </ul>
-        <button class="pcta sl" onclick="openPay('Pentest Completo','R$ 1.200','Intrusão controlada com relatório completo. Até 3 alvos, entrega em 7 dias.')" data-i18n="p.btn.pay">Contratar & Pagar →</button>
+        </ul></div>
+        <div class="pc-btn-wrap"><button class="pcta sl" onclick="openPay('Pentest Completo','R$ 1.200','Intrusão controlada com relatório completo. Até 3 alvos, entrega em 7 dias.')" data-i18n="p.btn.pay">Contratar &amp; Pagar →</button></div>
       </div>
       <div class="pc">
         <h3 data-i18n="p.h3.name">Red Team</h3><p class="pd" data-i18n="p.h3.desc">Simulação avançada de ameaça</p>
         <div class="pv" style="color:var(--muted);font-size:1.5rem" data-i18n="p.consult">Sob consulta</div><div class="pn" data-i18n="p.h3.note">prazo a definir</div>
         <hr class="dv">
-        <ul>
+        <div class="pc-features"><ul>
           <li><span class="ar">→</span><span data-i18n="p.h3.f1">Simulação de APT real</span></li>
           <li><span class="ar">→</span><span data-i18n="p.h3.f2">Phishing + engenharia social</span></li>
           <li><span class="ar">→</span><span data-i18n="p.h3.f3">Persistência e lateral movement</span></li>
           <li><span class="ar">→</span><span data-i18n="p.h3.f4">Alvos ilimitados</span></li>
           <li><span class="ar">→</span><span data-i18n="p.h3.f5">Suporte pós-entrega</span></li>
-        </ul>
-        <a href="#contact" class="pcta ol" data-i18n="p.btn.negotiate">Negociar →</a>
+        </ul></div>
+        <div class="pc-btn-wrap"><a href="#contact" class="pcta ol" data-i18n="p.btn.negotiate">Negociar →</a></div>
       </div>
     </div>
 
-    <!-- DEV -->
     <div class="panel" id="tab-dev">
       <div class="pc">
         <h3 data-i18n="p.d1.name">Script / Automação</h3><p class="pd" data-i18n="p.d1.desc">Ferramentas simples e scripts</p>
         <div class="pv">R$ 200</div><div class="pn" data-i18n="p.d1.note">a partir de</div>
         <hr class="dv">
-        <ul>
+        <div class="pc-features"><ul>
           <li><span class="ar">→</span><span data-i18n="p.d1.f1">Scripts Python / Bash</span></li>
           <li><span class="ar">→</span><span data-i18n="p.d1.f2">Automação de tarefas</span></li>
           <li><span class="ar">→</span><span data-i18n="p.d1.f3">Web scraping simples</span></li>
           <li><span class="ar">→</span><span data-i18n="p.d1.f4">Entrega com documentação</span></li>
-        </ul>
-        <button class="pcta py" onclick="openPay('Script / Automação','R$ 200','Scripts e automação com documentação.')" data-i18n="p.btn.pay">Contratar & Pagar →</button>
+        </ul></div>
+        <div class="pc-btn-wrap"><button class="pcta py" onclick="openPay('Script / Automação','R$ 200','Scripts e automação com documentação.')" data-i18n="p.btn.pay">Contratar &amp; Pagar →</button></div>
       </div>
       <div class="pc ft">
         <div class="fb" data-i18n="p.popular">Popular</div>
         <h3 data-i18n="p.d2.name">Ferramenta Custom</h3><p class="pd" data-i18n="p.d2.desc">Desenvolvimento sob demanda</p>
         <div class="pv">R$ 800</div><div class="pn" data-i18n="p.d2.note">a partir de, por projeto</div>
         <hr class="dv">
-        <ul>
+        <div class="pc-features"><ul>
           <li><span class="ar">→</span><span data-i18n="p.d2.f1">Levantamento de requisitos</span></li>
           <li><span class="ar">→</span><span data-i18n="p.d2.f2">Ferramenta de segurança / OSINT</span></li>
           <li><span class="ar">→</span><span data-i18n="p.d2.f3">Interface CLI ou Web</span></li>
           <li><span class="ar">→</span><span data-i18n="p.d2.f4">Código comentado e limpo</span></li>
           <li><span class="ar">→</span><span data-i18n="p.d2.f5">2 rodadas de revisão</span></li>
-        </ul>
-        <button class="pcta sl" onclick="openPay('Ferramenta Custom','R$ 800','Ferramenta customizada com 2 rodadas de revisão.')" data-i18n="p.btn.pay">Contratar & Pagar →</button>
+        </ul></div>
+        <div class="pc-btn-wrap"><button class="pcta sl" onclick="openPay('Ferramenta Custom','R$ 800','Ferramenta customizada com 2 rodadas de revisão.')" data-i18n="p.btn.pay">Contratar &amp; Pagar →</button></div>
       </div>
       <div class="pc">
         <h3 data-i18n="p.d3.name">Projeto Completo</h3><p class="pd" data-i18n="p.d3.desc">Sistemas complexos</p>
         <div class="pv" style="color:var(--muted);font-size:1.5rem" data-i18n="p.consult">Sob consulta</div><div class="pn" data-i18n="p.d3.note">orçamento personalizado</div>
         <hr class="dv">
-        <ul>
+        <div class="pc-features"><ul>
           <li><span class="ar">→</span><span data-i18n="p.d3.f1">Sistemas full-stack</span></li>
           <li><span class="ar">→</span><span data-i18n="p.d3.f2">Plataformas de análise</span></li>
           <li><span class="ar">→</span><span data-i18n="p.d3.f3">Integração com APIs externas</span></li>
           <li><span class="ar">→</span><span data-i18n="p.d3.f4">Deploy e manutenção</span></li>
           <li><span class="ar">→</span><span data-i18n="p.d3.f5">Suporte contínuo</span></li>
-        </ul>
-        <a href="#contact" class="pcta ol" data-i18n="p.btn.negotiate">Negociar →</a>
+        </ul></div>
+        <div class="pc-btn-wrap"><a href="#contact" class="pcta ol" data-i18n="p.btn.negotiate">Negociar →</a></div>
       </div>
     </div>
 
-    <!-- INVESTIGAÇÃO -->
     <div class="panel" id="tab-invest">
       <div class="pc">
         <h3 data-i18n="p.i1.name">OSINT Básico</h3><p class="pd" data-i18n="p.i1.desc">Levantamento de dados públicos</p>
         <div class="pv">R$ 400</div><div class="pn" data-i18n="p.i1.note">entrega em 48h · 1 pessoa ou empresa</div>
         <hr class="dv">
-        <ul>
+        <div class="pc-features"><ul>
           <li><span class="ar">→</span><span data-i18n="p.i1.f1">Pesquisa em fontes abertas</span></li>
           <li><span class="ar">→</span><span data-i18n="p.i1.f2">Redes sociais e vazamentos</span></li>
           <li><span class="ar">→</span><span data-i18n="p.i1.f3">1 pessoa ou empresa</span></li>
           <li><span class="ar">→</span><span data-i18n="p.i1.f4">Relatório resumido</span></li>
-        </ul>
-        <button class="pcta py" onclick="openPay('OSINT Básico','R$ 400','Levantamento de dados públicos. Entrega em 48h.')" data-i18n="p.btn.pay">Contratar & Pagar →</button>
+        </ul></div>
+        <div class="pc-btn-wrap"><button class="pcta py" onclick="openPay('OSINT Básico','R$ 400','Levantamento de dados públicos. Entrega em 48h.')" data-i18n="p.btn.pay">Contratar &amp; Pagar →</button></div>
       </div>
       <div class="pc ft">
         <div class="fb" data-i18n="p.popular">Popular</div>
         <h3 data-i18n="p.i2.name">Investigação Digital</h3><p class="pd" data-i18n="p.i2.desc">Análise aprofundada e rastreamento</p>
         <div class="pv">R$ 1.000</div><div class="pn" data-i18n="p.i2.note">por caso</div>
         <hr class="dv">
-        <ul>
+        <div class="pc-features"><ul>
           <li><span class="ar">→</span><span data-i18n="p.i2.f1">OSINT + SOCMINT avançado</span></li>
           <li><span class="ar">→</span><span data-i18n="p.i2.f2">Rastreamento de pegada digital</span></li>
           <li><span class="ar">→</span><span data-i18n="p.i2.f3">Análise de metadados</span></li>
           <li><span class="ar">→</span><span data-i18n="p.i2.f4">Verificação de identidade</span></li>
           <li><span class="ar">→</span><span data-i18n="p.i2.f5">Relatório completo com evidências</span></li>
-        </ul>
-        <button class="pcta sl" onclick="openPay('Investigação Digital','R$ 1.000','Investigação OSINT avançada com relatório e evidências.')" data-i18n="p.btn.pay">Contratar & Pagar →</button>
+        </ul></div>
+        <div class="pc-btn-wrap"><button class="pcta sl" onclick="openPay('Investigação Digital','R$ 1.000','Investigação OSINT avançada com relatório e evidências.')" data-i18n="p.btn.pay">Contratar &amp; Pagar →</button></div>
       </div>
       <div class="pc">
         <h3 data-i18n="p.i3.name">Due Diligence</h3><p class="pd" data-i18n="p.i3.desc">Investigação corporativa profunda</p>
         <div class="pv" style="color:var(--muted);font-size:1.5rem" data-i18n="p.consult">Sob consulta</div><div class="pn" data-i18n="p.i3.note">prazo a definir</div>
         <hr class="dv">
-        <ul>
+        <div class="pc-features"><ul>
           <li><span class="ar">→</span><span data-i18n="p.i3.f1">Análise de empresas e sócios</span></li>
           <li><span class="ar">→</span><span data-i18n="p.i3.f2">Cruzamento de dados extenso</span></li>
           <li><span class="ar">→</span><span data-i18n="p.i3.f3">Histórico financeiro e jurídico</span></li>
           <li><span class="ar">→</span><span data-i18n="p.i3.f4">Relatório para uso legal</span></li>
           <li><span class="ar">→</span><span data-i18n="p.i3.f5">Confidencialidade total</span></li>
-        </ul>
-        <a href="#contact" class="pcta ol" data-i18n="p.btn.negotiate">Negociar →</a>
+        </ul></div>
+        <div class="pc-btn-wrap"><a href="#contact" class="pcta ol" data-i18n="p.btn.negotiate">Negociar →</a></div>
       </div>
     </div>
   </div>
@@ -670,7 +577,6 @@ footer p+p{margin-top:5px}
 
 <div class="sep"></div>
 
-<!-- CONTACT -->
 <section id="contact">
   <div class="inn">
     <div class="ctg">
@@ -680,32 +586,56 @@ footer p+p{margin-top:5px}
         <p class="sd rv d2" data-i18n="contact.desc">Descreva seu caso ou projeto. Respondo em até 24h com total discrição.</p>
       </div>
       <div class="ctc rv d2">
-        <a href="mailto:nridieydus524@gmail.com" class="cb">
-          <div class="ci" style="background:rgba(192,57,43,.12)">📧</div>
-          <div class="ct2"><span class="cl">Email</span><span class="cv">nridieydus524@gmail.com</span></div>
-          <span class="ca">→</span>
-        </a>
-        <a href="https://t.me/lllZer00lll" target="_blank" rel="noopener noreferrer" class="cb">
-          <div class="ci" style="background:rgba(0,200,255,.1)">✈️</div>
-          <div class="ct2"><span class="cl">Telegram</span><span class="cv">@lllZer00lll</span></div>
-          <span class="ca">→</span>
-        </a>
-        <a href="https://discord.com/users/696727628689703032" target="_blank" rel="noopener noreferrer" class="cb">
-          <div class="ci" style="background:rgba(114,137,218,.12)">💬</div>
-          <div class="ct2"><span class="cl">Discord</span><span class="cv">Zer00</span></div>
-          <span class="ca">→</span>
-        </a>
-        <a href="https://github.com/Algumapess04" target="_blank" rel="noopener noreferrer" class="cb">
-          <div class="ci" style="background:rgba(255,255,255,.06)"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.166 6.839 9.489.5.09.682-.218.682-.484 0-.236-.009-.866-.013-1.699-2.782.602-3.369-1.34-3.369-1.34-.455-1.157-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.833.091-.647.349-1.086.635-1.337-2.22-.251-4.555-1.111-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.254-.447-1.27.098-2.645 0 0 .84-.269 2.75 1.026A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.748-1.026 2.748-1.026.546 1.376.202 2.394.1 2.646.64.699 1.026 1.591 1.026 2.682 0 3.841-2.337 4.687-4.565 4.935.359.307.679.917.679 1.852 0 1.335-.012 2.415-.012 2.741 0 .269.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg></div>
-          <div class="ct2"><span class="cl">GitHub</span><span class="cv">Zer00</span></div>
-          <span class="ca">→</span>
-        </a>
+        <a href="mailto:nridieydus524@gmail.com" class="cb"><div class="ci" style="background:rgba(192,57,43,.12)">📧</div><div class="ct2"><span class="cl">Email</span><span class="cv">nridieydus524@gmail.com</span></div><span class="ca">→</span></a>
+        <a href="https://t.me/lllZer00lll" target="_blank" rel="noopener noreferrer" class="cb"><div class="ci" style="background:rgba(0,200,255,.1)">✈️</div><div class="ct2"><span class="cl">Telegram</span><span class="cv">@lllZer00lll</span></div><span class="ca">→</span></a>
+        <a href="https://discord.com/users/696727628689703032" target="_blank" rel="noopener noreferrer" class="cb"><div class="ci" style="background:rgba(114,137,218,.12)">💬</div><div class="ct2"><span class="cl">Discord</span><span class="cv">Zer00</span></div><span class="ca">→</span></a>
+        <a href="https://github.com/Algumapess04" target="_blank" rel="noopener noreferrer" class="cb"><div class="ci" style="background:rgba(255,255,255,.06)"><svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M12 2C6.477 2 2 6.477 2 12c0 4.419 2.865 8.166 6.839 9.489.5.09.682-.218.682-.484 0-.236-.009-.866-.013-1.699-2.782.602-3.369-1.34-3.369-1.34-.455-1.157-1.11-1.465-1.11-1.465-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.088 2.91.833.091-.647.349-1.086.635-1.337-2.22-.251-4.555-1.111-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.103-.254-.447-1.27.098-2.645 0 0 .84-.269 2.75 1.026A9.578 9.578 0 0 1 12 6.836c.85.004 1.705.114 2.504.336 1.909-1.294 2.748-1.026 2.748-1.026.546 1.376.202 2.394.1 2.646.64.699 1.026 1.591 1.026 2.682 0 3.841-2.337 4.687-4.565 4.935.359.307.679.917.679 1.852 0 1.335-.012 2.415-.012 2.741 0 .269.18.579.688.481C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/></svg></div><div class="ct2"><span class="cl">GitHub</span><span class="cv">Zer00</span></div><span class="ca">→</span></a>
       </div>
     </div>
   </div>
 </section>
 
-<!-- FOOTER -->
+<div class="sep"></div>
+
+<section id="feedback">
+  <div class="inn">
+    <div class="ey rv" data-i18n="fb.eyebrow">Feedback</div>
+    <h2 class="st rv d1" data-i18n="fb.title">O que acharam<br>do serviço.</h2>
+    <p class="sd rv d2" data-i18n="fb.desc">Deixe sua avaliação. Ajuda outros clientes e me ajuda a melhorar.</p>
+    <div class="fb-grid">
+      <div class="rv d1">
+        <div class="fb-form">
+          <div id="fbFormInner">
+            <span class="fb-rating-label" data-i18n="fb.rateLabel">Sua avaliação *</span>
+            <div class="fb-stars" id="starRow">
+              <span class="star" onclick="rateStar(1)" onmouseenter="hoverStar(1)" onmouseleave="unhoverStar()">★</span>
+              <span class="star" onclick="rateStar(2)" onmouseenter="hoverStar(2)" onmouseleave="unhoverStar()">★</span>
+              <span class="star" onclick="rateStar(3)" onmouseenter="hoverStar(3)" onmouseleave="unhoverStar()">★</span>
+              <span class="star" onclick="rateStar(4)" onmouseenter="hoverStar(4)" onmouseleave="unhoverStar()">★</span>
+              <span class="star" onclick="rateStar(5)" onmouseenter="hoverStar(5)" onmouseleave="unhoverStar()">★</span>
+            </div>
+            <div class="fb-name-row">
+              <input class="fb-input" id="fbName" type="text" maxlength="40" autocomplete="name" data-placeholder-pt="Seu nome ou apelido" data-placeholder-en="Your name or alias">
+              <input class="fb-input" id="fbService" type="text" maxlength="50" autocomplete="off" data-placeholder-pt="Serviço contratado (opcional)" data-placeholder-en="Service hired (optional)">
+            </div>
+            <textarea class="fb-textarea" id="fbText" maxlength="400" data-placeholder-pt="Conte como foi a experiência…" data-placeholder-en="Tell us about your experience…"></textarea>
+            <button class="fb-submit" id="fbSubmit" onclick="submitFeedback()" data-i18n="fb.submit">Enviar avaliação →</button>
+          </div>
+          <div class="fb-success" id="fbSuccess">
+            <div class="fb-success-ico">🎯</div>
+            <div class="fb-success-title" data-i18n="fb.successTitle">Obrigado pelo feedback!</div>
+            <p class="fb-success-desc" data-i18n="fb.successDesc">Sua avaliação foi registrada e aparecerá em breve.</p>
+          </div>
+        </div>
+      </div>
+      <div class="rv d2">
+        <div class="fb-wall" id="reviewWall"></div>
+        <div class="fb-empty" id="fbEmpty" style="display:none" data-i18n="fb.empty">// nenhuma avaliação ainda</div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <footer>
   <div class="fl"><span>//</span> Zer00</div>
   <div class="flinks">
@@ -714,17 +644,16 @@ footer p+p{margin-top:5px}
     <a href="#about" data-i18n="nav.about">Sobre</a>
     <a href="#pricing" data-i18n="nav.pricing">Preços</a>
     <a href="#contact" data-i18n="nav.contact">Contato</a>
+    <a href="#feedback" data-i18n="nav.feedback">Feedback</a>
   </div>
-  <p>Hack. Code. Investigate. · 2020</p>
+  <p>Hack. Code. Investigate. · 2025</p>
   <p style="margin-top:5px;font-size:.65rem" data-i18n="footer.tagline">Pagando bem, que mal tem?</p>
 </footer>
 
-<!-- ─── PAYMENT MODAL ─── -->
+<!-- MODAL -->
 <div class="ovl" id="ovl" onclick="overlayClick(event)" role="dialog" aria-modal="true" aria-labelledby="mtitle">
   <div class="modal" id="mbox">
     <div class="mhdl"></div>
-
-    <!-- STEP 1 -->
     <div class="step active" id="s1">
       <div class="sec-banner">🔒 <span data-i18n="modal.secure">Formulário seguro · Dados criptografados localmente</span></div>
       <div class="ustr"><span class="udot"></span> <span data-i18n="modal.urgency">Resposta garantida em até 24h</span></div>
@@ -734,25 +663,10 @@ footer p+p{margin-top:5px}
         <div class="msub" data-i18n="modal.sub">Preencha os dados do projeto</div>
       </div>
       <div class="mbody">
-        <!-- Rate limit warning -->
         <div class="rate-warn" id="rateWarn" data-i18n="modal.rateWarn">⚠ Muitas tentativas. Aguarde 60 segundos.</div>
-
-        <div class="ord">
-          <div class="ordrow">
-            <div><div class="oname" id="oname">—</div><div class="odesc" id="odesc">—</div></div>
-            <div class="oprice" id="oprice">—</div>
-          </div>
-        </div>
-
-        <!-- HONEYPOT — invisible to real users, bots fill it -->
-        <div class="hp-field" aria-hidden="true">
-          <input type="text" id="hp" name="website" tabindex="-1" autocomplete="off">
-        </div>
-
-        <div class="fs">
-          <label class="fl2" data-i18n="modal.nameLabel">Como prefere ser chamado?</label>
-          <input class="fi" id="cn" type="text" placeholder="Nome ou apelido (opcional)" maxlength="60" autocomplete="name">
-        </div>
+        <div class="ord"><div class="ordrow"><div><div class="oname" id="oname">—</div><div class="odesc" id="odesc">—</div></div><div class="oprice" id="oprice">—</div></div></div>
+        <div class="hp-field" aria-hidden="true"><input type="text" id="hp" name="website" tabindex="-1" autocomplete="off"></div>
+        <div class="fs"><label class="fl2" data-i18n="modal.nameLabel">Como prefere ser chamado?</label><input class="fi" id="cn" type="text" placeholder="Nome ou apelido (opcional)" maxlength="60" autocomplete="name"></div>
         <div class="fs">
           <label class="fl2" data-i18n="modal.contactLabel">Contato para retorno *</label>
           <div class="field-wrap">
@@ -761,10 +675,7 @@ footer p+p{margin-top:5px}
           </div>
           <div class="field-err" id="ccErr"></div>
         </div>
-        <div class="fs">
-          <label class="fl2" data-i18n="modal.descLabel">Descreva o projeto / caso</label>
-          <textarea class="fta" id="cd" placeholder="Seja detalhado. Tudo é confidencial." maxlength="1000"></textarea>
-        </div>
+        <div class="fs"><label class="fl2" data-i18n="modal.descLabel">Descreva o projeto / caso</label><textarea class="fta" id="cd" placeholder="Seja detalhado. Tudo é confidencial." maxlength="1000"></textarea></div>
         <div class="fs">
           <label class="fl2" data-i18n="modal.methodLabel">Método de pagamento</label>
           <div class="pms">
@@ -775,8 +686,6 @@ footer p+p{margin-top:5px}
         <button class="cbm" id="continueBtn" onclick="goS2()" data-i18n="modal.continue">Continuar → Pagamento</button>
       </div>
     </div>
-
-    <!-- STEP 2 -->
     <div class="step" id="s2">
       <div class="sec-banner">🔒 <span data-i18n="modal.secure">Formulário seguro · Dados criptografados localmente</span></div>
       <div class="mhd">
@@ -785,23 +694,14 @@ footer p+p{margin-top:5px}
         <div class="msub" id="s2sub" data-i18n="modal.paySub">Realize o pagamento e confirme</div>
       </div>
       <div class="mbody">
-        <div class="ord" style="margin-bottom:20px">
-          <div class="ordrow"><div class="oname" id="oname2">—</div><div class="oprice" id="oprice2">—</div></div>
-        </div>
-
-        <!-- PIX -->
+        <div class="ord" style="margin-bottom:20px"><div class="ordrow"><div class="oname" id="oname2">—</div><div class="oprice" id="oprice2">—</div></div></div>
         <div id="pixBlock">
           <div class="pix">
             <div class="plbl" data-i18n="modal.pixKey">Chave PIX</div>
-            <div class="pkey">
-              <span id="pixKeyText">045925d5-17c9-4dbc-85cd-3bb4947789bc</span>
-              <button class="pcp" id="cpBtn" onclick="copyPix()" data-i18n="modal.copy">Copiar</button>
-            </div>
+            <div class="pkey"><span id="pixKeyText">045925d5-17c9-4dbc-85cd-3bb4947789bc</span><button class="pcp" id="cpBtn" onclick="copyPix()" data-i18n="modal.copy">Copiar</button></div>
             <p class="pnote" data-i18n="modal.pixNote">Após pagar, envie o comprovante via Telegram @lllZer00lll ou email com o nome do serviço.</p>
           </div>
         </div>
-
-        <!-- CRIPTO -->
         <div id="criptoBlock" style="display:none">
           <div class="pix" style="background:rgba(0,200,255,.06);border-color:rgba(0,200,255,.25)">
             <div class="plbl" style="color:var(--blue)" data-i18n="modal.wallets">Carteiras Aceitas</div>
@@ -816,17 +716,11 @@ footer p+p{margin-top:5px}
             <p class="pnote" style="margin-top:12px" data-i18n="modal.criptoNote">Confirme via Telegram @lllZer00lll com TX hash e nome do serviço.</p>
           </div>
         </div>
-
-        <div class="fs">
-          <label class="fl2" data-i18n="modal.txLabel">Comprovante / TX Hash (opcional)</label>
-          <input class="fi" id="txid" type="text" placeholder="ID da transação ou código PIX" maxlength="120" autocomplete="off">
-        </div>
+        <div class="fs"><label class="fl2" data-i18n="modal.txLabel">Comprovante / TX Hash (opcional)</label><input class="fi" id="txid" type="text" placeholder="ID da transação ou código PIX" maxlength="120" autocomplete="off"></div>
         <button class="cbm" id="confirmBtn" onclick="goS3()" data-i18n="modal.confirm">✓ Confirmar Pedido</button>
         <button class="bkb" onclick="goBack()" data-i18n="modal.back">← Voltar</button>
       </div>
     </div>
-
-    <!-- STEP 3 -->
     <div class="step" id="s3">
       <div class="succ">
         <div class="sico">✓</div>
@@ -836,425 +730,107 @@ footer p+p{margin-top:5px}
         <button class="scl" onclick="closePay()" data-i18n="modal.close">Fechar</button>
       </div>
     </div>
-
   </div>
 </div>
 
 <script>
-/* ════════════════════════════════════
-   i18n
-════════════════════════════════════ */
-const T = {
-  pt: {
-    'nav.services':'Serviços','nav.certs':'Certificações','nav.about':'Sobre',
-    'nav.pricing':'Preços','nav.contact':'Contato','nav.hire':'Contratar',
-    'hero.badge':'Disponível para projetos','hero.scroll':'Scroll',
-    'hero.sub':'Segurança ofensiva, desenvolvimento e investigação privada. Onde outros param na superfície — eu vou mais fundo.',
-    'hero.cta':'Ver Serviços →',
-    'services.eyebrow':'Especialidades','services.title':'Três áreas.<br>Uma missão.',
-    'services.desc':'Atuação técnica e discreta nos campos onde segurança, código e investigação se cruzam.',
-    'services.s1.title':'Hacking & Segurança','services.s1.desc':'Testes de intrusão, análise de vulnerabilidades, engenharia reversa e hardening. Pentest ético com relatório completo.',
-    'services.s2.title':'Programação & Dev','services.s2.desc':'Desenvolvimento de ferramentas de segurança, automação, scripts e sistemas customizados. Do conceito ao deploy.',
-    'services.s3.title':'Investigação Privada','services.s3.desc':'Coleta e análise de dados abertos (OSINT), rastreamento digital, verificação de identidades e due diligence técnica.',
-    'certs.eyebrow':'Certificações','certs.title':'Credenciais<br>verificadas.',
-    'certs.desc':'Formação técnica reconhecida internacionalmente nas áreas de segurança ofensiva e análise.',
-    'certs.verified':'Verificado',
-    'certs.secplus.desc':'Fundamentos de segurança, criptografia, ameaças e gerenciamento de riscos.',
-    'certs.ceh.desc':'Certified Ethical Hacker — técnicas de hacking ético e testes de intrusão.',
-    'certs.oscp.desc':'Offensive Security Certified Professional — pentest avançado em ambiente real.',
-    'certs.cysa.desc':'Análise de segurança cibernética, threat hunting e resposta a incidentes.',
-    'about.eyebrow':'Sobre','about.title':'Quem é<br>o Zer00.',
-    'about.bio':'Profissional independente especializado na intersecção entre segurança ofensiva, desenvolvimento e inteligência de fontes abertas. Trabalho de forma discreta, entrego com precisão.',
-    'about.stat1':'Dados analisados','about.stat2':'Brechas deixadas','about.stat3':'Discrição garantida',
-    'pricing.eyebrow':'Serviços & Preços','pricing.title':'Escolha o<br>seu serviço.',
-    'pricing.desc':'Sigilo total e relatório detalhado em todos os serviços. Pagamentos via PIX ou cripto.',
-    'pricing.tab1':'Hacking','pricing.tab3':'Investigação',
-    'p.popular':'Popular','p.consult':'Sob consulta',
-    'p.btn.pay':'Contratar & Pagar →','p.btn.negotiate':'Negociar →',
-    'p.h1.name':'Scan & Relatório','p.h1.desc':'Análise de vulnerabilidades básica','p.h1.note':'entrega em até 48h · 1 alvo',
-    'p.h1.f1':'Scan de portas e serviços','p.h1.f2':'Identificação de CVEs públicas','p.h1.f3':'Relatório em PDF detalhado','p.h1.f4':'1 alvo / domínio',
-    'p.h2.name':'Pentest Completo','p.h2.desc':'Intrusão controlada e documentada','p.h2.note':'entrega em até 7 dias · 3 alvos',
-    'p.h2.f1':'Reconhecimento (OSINT + ativo)','p.h2.f2':'Exploração de vulnerabilidades','p.h2.f3':'Escalada de privilégios','p.h2.f4':'Relatório executivo + técnico','p.h2.f5':'Até 3 alvos','p.h2.f6':'Recomendações de mitigação',
-    'p.h3.name':'Red Team','p.h3.desc':'Simulação avançada de ameaça','p.h3.note':'prazo a definir',
-    'p.h3.f1':'Simulação de APT real','p.h3.f2':'Phishing + engenharia social','p.h3.f3':'Persistência e lateral movement','p.h3.f4':'Alvos ilimitados','p.h3.f5':'Suporte pós-entrega',
-    'p.d1.name':'Script / Automação','p.d1.desc':'Ferramentas simples e scripts','p.d1.note':'a partir de',
-    'p.d1.f1':'Scripts Python / Bash','p.d1.f2':'Automação de tarefas','p.d1.f3':'Web scraping simples','p.d1.f4':'Entrega com documentação',
-    'p.d2.name':'Ferramenta Custom','p.d2.desc':'Desenvolvimento sob demanda','p.d2.note':'a partir de, por projeto',
-    'p.d2.f1':'Levantamento de requisitos','p.d2.f2':'Ferramenta de segurança / OSINT','p.d2.f3':'Interface CLI ou Web','p.d2.f4':'Código comentado e limpo','p.d2.f5':'2 rodadas de revisão',
-    'p.d3.name':'Projeto Completo','p.d3.desc':'Sistemas complexos','p.d3.note':'orçamento personalizado',
-    'p.d3.f1':'Sistemas full-stack','p.d3.f2':'Plataformas de análise','p.d3.f3':'Integração com APIs externas','p.d3.f4':'Deploy e manutenção','p.d3.f5':'Suporte contínuo',
-    'p.i1.name':'OSINT Básico','p.i1.desc':'Levantamento de dados públicos','p.i1.note':'entrega em 48h · 1 pessoa ou empresa',
-    'p.i1.f1':'Pesquisa em fontes abertas','p.i1.f2':'Redes sociais e vazamentos','p.i1.f3':'1 pessoa ou empresa','p.i1.f4':'Relatório resumido',
-    'p.i2.name':'Investigação Digital','p.i2.desc':'Análise aprofundada e rastreamento','p.i2.note':'por caso',
-    'p.i2.f1':'OSINT + SOCMINT avançado','p.i2.f2':'Rastreamento de pegada digital','p.i2.f3':'Análise de metadados','p.i2.f4':'Verificação de identidade','p.i2.f5':'Relatório completo com evidências',
-    'p.i3.name':'Due Diligence','p.i3.desc':'Investigação corporativa profunda','p.i3.note':'prazo a definir',
-    'p.i3.f1':'Análise de empresas e sócios','p.i3.f2':'Cruzamento de dados extenso','p.i3.f3':'Histórico financeiro e jurídico','p.i3.f4':'Relatório para uso legal','p.i3.f5':'Confidencialidade total',
-    'contact.eyebrow':'Contato','contact.title':'Vamos<br>trabalhar.',
-    'contact.desc':'Descreva seu caso ou projeto. Respondo em até 24h com total discrição.',
-    'footer.tagline':'Pagando bem, que mal tem?',
-    'modal.secure':'Formulário seguro · Dados criptografados localmente',
-    'modal.urgency':'Resposta garantida em até 24h',
-    'modal.title':'Contratar Serviço','modal.sub':'Preencha os dados do projeto',
-    'modal.rateWarn':'⚠ Muitas tentativas. Aguarde 60 segundos.',
-    'modal.nameLabel':'Como prefere ser chamado?','modal.contactLabel':'Contato para retorno *',
-    'modal.descLabel':'Descreva o projeto / caso','modal.methodLabel':'Método de pagamento',
-    'modal.continue':'Continuar → Pagamento','modal.payTitle':'Efetuar Pagamento',
-    'modal.paySub':'Realize o pagamento e confirme',
-    'modal.pixKey':'Chave PIX — Email','modal.copy':'Copiar','modal.wallets':'Carteiras Aceitas',
-    'modal.pixNote':'Após pagar, envie o comprovante via Telegram @lllZer00lll ou email com o nome do serviço.',
-    'modal.criptoNote':'Confirme via Telegram @lllZer00lll com TX hash e nome do serviço.',
-    'modal.txLabel':'Comprovante / TX Hash (opcional)',
-    'modal.confirm':'✓ Confirmar Pedido','modal.back':'← Voltar',
-    'modal.successTitle':'Pedido Registrado!',
-    'modal.successDesc':'Seu pedido foi enviado com sucesso.<br>Entrarei em contato em até <strong style="color:var(--red-v)">24 horas</strong>.<br><br>Envie o comprovante via Telegram <strong>@lllZer00lll</strong>.',
-    'modal.close':'Fechar',
-    'val.empty':'→ Preencha um contato para retorno.',
-    'val.emailInvalid':'→ Email inválido. Ex: nome@dominio.com',
-    'val.tgShort':'→ Telegram: mínimo 5 caracteres após @',
-    'val.tgLetter':'→ Telegram: deve começar com letra após @',
-    'val.tgChars':'→ Telegram: só letras, números e _',
-    'val.tgDouble':'→ Telegram: não pode ter __ consecutivos',
-    'val.discord':'→ Discord: formato usuario#0000 (4 dígitos)',
-    'val.short':'→ Muito curto. Mínimo 2 caracteres.',
-    'val.generic':'→ Use: email@dominio.com · @telegram · discord#0000',
-  },
-  en: {
-    'nav.services':'Services','nav.certs':'Certifications','nav.about':'About',
-    'nav.pricing':'Pricing','nav.contact':'Contact','nav.hire':'Hire Me',
-    'hero.badge':'Available for projects','hero.scroll':'Scroll',
-    'hero.sub':'Offensive security, development and private investigation. Where others stop at the surface — I go deeper.',
-    'hero.cta':'View Services →',
-    'services.eyebrow':'Specialties','services.title':'Three areas.<br>One mission.',
-    'services.desc':'Technical and discreet work at the intersection of security, code and investigation.',
-    'services.s1.title':'Hacking & Security','services.s1.desc':'Penetration testing, vulnerability analysis, reverse engineering and hardening. Ethical pentest with full report.',
-    'services.s2.title':'Programming & Dev','services.s2.desc':'Security tool development, automation, scripts and custom systems. From concept to deployment.',
-    'services.s3.title':'Private Investigation','services.s3.desc':'Open-source data collection (OSINT), digital tracking, identity verification and technical due diligence.',
-    'certs.eyebrow':'Certifications','certs.title':'Verified<br>credentials.',
-    'certs.desc':'Internationally recognized technical training in offensive security and analysis.',
-    'certs.verified':'Verified',
-    'certs.secplus.desc':'Security fundamentals, cryptography, threats and risk management.',
-    'certs.ceh.desc':'Certified Ethical Hacker — ethical hacking techniques and penetration testing.',
-    'certs.oscp.desc':'Offensive Security Certified Professional — advanced pentest in real environments.',
-    'certs.cysa.desc':'Cybersecurity analysis, threat hunting and incident response.',
-    'about.eyebrow':'About','about.title':'Who is<br>Zer00.',
-    'about.bio':'Independent professional specialized at the intersection of offensive security, development and open-source intelligence. I work discreetly and deliver with precision.',
-    'about.stat1':'Data analyzed','about.stat2':'Gaps left','about.stat3':'Discretion guaranteed',
-    'pricing.eyebrow':'Services & Pricing','pricing.title':'Choose your<br>service.',
-    'pricing.desc':'Full confidentiality and detailed report on all services. Payments via PIX or crypto.',
-    'pricing.tab1':'Hacking','pricing.tab3':'Investigation',
-    'p.popular':'Popular','p.consult':'On request',
-    'p.btn.pay':'Hire & Pay →','p.btn.negotiate':'Negotiate →',
-    'p.h1.name':'Scan & Report','p.h1.desc':'Basic vulnerability analysis','p.h1.note':'delivery within 48h · 1 target',
-    'p.h1.f1':'Port and service scan','p.h1.f2':'Public CVE identification','p.h1.f3':'Detailed PDF report','p.h1.f4':'1 target / domain',
-    'p.h2.name':'Full Pentest','p.h2.desc':'Controlled and documented intrusion','p.h2.note':'delivery within 7 days · 3 targets',
-    'p.h2.f1':'Reconnaissance (OSINT + active)','p.h2.f2':'Vulnerability exploitation','p.h2.f3':'Privilege escalation','p.h2.f4':'Executive + technical report','p.h2.f5':'Up to 3 targets','p.h2.f6':'Mitigation recommendations',
-    'p.h3.name':'Red Team','p.h3.desc':'Advanced threat simulation','p.h3.note':'timeline to be defined',
-    'p.h3.f1':'Real APT simulation','p.h3.f2':'Phishing + social engineering','p.h3.f3':'Persistence and lateral movement','p.h3.f4':'Unlimited targets','p.h3.f5':'Post-delivery support',
-    'p.d1.name':'Script / Automation','p.d1.desc':'Simple tools and scripts','p.d1.note':'starting from',
-    'p.d1.f1':'Python / Bash scripts','p.d1.f2':'Task automation','p.d1.f3':'Simple web scraping','p.d1.f4':'Delivery with documentation',
-    'p.d2.name':'Custom Tool','p.d2.desc':'On-demand development','p.d2.note':'starting from, per project',
-    'p.d2.f1':'Requirements gathering','p.d2.f2':'Security / OSINT tool','p.d2.f3':'CLI or Web interface','p.d2.f4':'Commented clean code','p.d2.f5':'2 revision rounds',
-    'p.d3.name':'Full Project','p.d3.desc':'Complex systems','p.d3.note':'custom quote',
-    'p.d3.f1':'Full-stack systems','p.d3.f2':'Analysis platforms','p.d3.f3':'External API integration','p.d3.f4':'Deploy and maintenance','p.d3.f5':'Ongoing support',
-    'p.i1.name':'Basic OSINT','p.i1.desc':'Public data collection','p.i1.note':'delivery in 48h · 1 person or company',
-    'p.i1.f1':'Open-source research','p.i1.f2':'Social media and leaks','p.i1.f3':'1 person or company','p.i1.f4':'Summary report',
-    'p.i2.name':'Digital Investigation','p.i2.desc':'In-depth analysis and tracking','p.i2.note':'per case',
-    'p.i2.f1':'Advanced OSINT + SOCMINT','p.i2.f2':'Digital footprint tracking','p.i2.f3':'Metadata analysis','p.i2.f4':'Identity verification','p.i2.f5':'Complete report with evidence',
-    'p.i3.name':'Due Diligence','p.i3.desc':'Deep corporate investigation','p.i3.note':'timeline to be defined',
-    'p.i3.f1':'Company and partner analysis','p.i3.f2':'Extensive data cross-referencing','p.i3.f3':'Financial and legal history','p.i3.f4':'Report for legal use','p.i3.f5':'Full confidentiality',
-    'contact.eyebrow':'Contact','contact.title':"Let's<br>work.",
-    'contact.desc':'Describe your case or project. I respond within 24h with full discretion.',
-    'footer.tagline':'Pay well, no harm in that.',
-    'modal.secure':'Secure form · Data encrypted locally',
-    'modal.urgency':'Response guaranteed within 24h',
-    'modal.title':'Hire Service','modal.sub':'Fill in your project details',
-    'modal.rateWarn':'⚠ Too many attempts. Wait 60 seconds.',
-    'modal.nameLabel':'What should I call you?','modal.contactLabel':'Return contact *',
-    'modal.descLabel':'Describe the project / case','modal.methodLabel':'Payment method',
-    'modal.continue':'Continue → Payment','modal.payTitle':'Make Payment',
-    'modal.paySub':'Complete the payment and confirm',
-    'modal.pixKey':'PIX Key — Email','modal.copy':'Copy','modal.wallets':'Accepted Wallets',
-    'modal.pixNote':'After paying, send the receipt via Telegram @lllZer00lll or email with the service name.',
-    'modal.criptoNote':'Confirm via Telegram @lllZer00lll with TX hash and service name.',
-    'modal.txLabel':'Receipt / TX Hash (optional)',
-    'modal.confirm':'✓ Confirm Order','modal.back':'← Back',
-    'modal.successTitle':'Order Registered!',
-    'modal.successDesc':'Your order was sent successfully.<br>I\'ll reach out through the provided channel within <strong style="color:var(--red-v)">24 hours</strong>.<br><br>Send the payment receipt via Telegram <strong>@lllZer00lll</strong>.',
-    'modal.close':'Close',
-    'val.empty':'→ Please provide a return contact.',
-    'val.emailInvalid':'→ Invalid email. Ex: name@domain.com',
-    'val.tgShort':'→ Telegram: minimum 5 characters after @',
-    'val.tgLetter':'→ Telegram: must start with a letter after @',
-    'val.tgChars':'→ Telegram: only letters, numbers and _',
-    'val.tgDouble':'→ Telegram: cannot have consecutive __',
-    'val.discord':'→ Discord: format user#0000 (4 digits)',
-    'val.short':'→ Too short. Minimum 2 characters.',
-    'val.generic':'→ Use: email@domain.com · @telegram · user#0000',
-  }
-};
+/* i18n */
+const T={pt:{'nav.services':'Serviços','nav.certs':'Certificações','nav.about':'Sobre','nav.pricing':'Preços','nav.contact':'Contato','nav.hire':'Contratar','nav.feedback':'Feedback','hero.badge':'Disponível para projetos','hero.scroll':'Scroll','hero.sub':'Segurança ofensiva, desenvolvimento e investigação privada. Onde outros param na superfície — eu vou mais fundo.','hero.cta':'Ver Serviços →','services.eyebrow':'Especialidades','services.title':'Três áreas.<br>Uma missão.','services.desc':'Atuação técnica e discreta nos campos onde segurança, código e investigação se cruzam.','services.s1.title':'Hacking & Segurança','services.s1.desc':'Testes de intrusão, análise de vulnerabilidades, engenharia reversa e hardening. Pentest ético com relatório completo.','services.s2.title':'Programação & Dev','services.s2.desc':'Desenvolvimento de ferramentas de segurança, automação, scripts e sistemas customizados. Do conceito ao deploy.','services.s3.title':'Investigação Privada','services.s3.desc':'Coleta e análise de dados abertos (OSINT), rastreamento digital, verificação de identidades e due diligence técnica.','certs.eyebrow':'Certificações','certs.title':'Credenciais<br>verificadas.','certs.desc':'Formação técnica reconhecida internacionalmente nas áreas de segurança ofensiva e análise.','certs.verified':'Verificado','certs.secplus.desc':'Fundamentos de segurança, criptografia, ameaças e gerenciamento de riscos.','certs.ceh.desc':'Certified Ethical Hacker — técnicas de hacking ético e testes de intrusão.','certs.oscp.desc':'Offensive Security Certified Professional — pentest avançado em ambiente real.','certs.cysa.desc':'Análise de segurança cibernética, threat hunting e resposta a incidentes.','about.eyebrow':'Sobre','about.title':'Quem é<br>o Zer00.','about.bio':'Profissional independente especializado na intersecção entre segurança ofensiva, desenvolvimento e inteligência de fontes abertas. Trabalho de forma discreta, entrego com precisão.','about.stat1':'Dados analisados','about.stat2':'Brechas deixadas','about.stat3':'Discrição garantida','pricing.eyebrow':'Serviços & Preços','pricing.title':'Escolha o<br>seu serviço.','pricing.desc':'Sigilo total e relatório detalhado em todos os serviços. Pagamentos via PIX ou cripto.','pricing.tab1':'Hacking','pricing.tab3':'Investigação','p.popular':'Popular','p.consult':'Sob consulta','p.btn.pay':'Contratar & Pagar →','p.btn.negotiate':'Negociar →','p.h1.name':'Scan & Relatório','p.h1.desc':'Análise de vulnerabilidades básica','p.h1.note':'entrega em até 48h · 1 alvo','p.h1.f1':'Scan de portas e serviços','p.h1.f2':'Identificação de CVEs públicas','p.h1.f3':'Relatório em PDF detalhado','p.h1.f4':'1 alvo / domínio','p.h2.name':'Pentest Completo','p.h2.desc':'Intrusão controlada e documentada','p.h2.note':'entrega em até 7 dias · 3 alvos','p.h2.f1':'Reconhecimento (OSINT + ativo)','p.h2.f2':'Exploração de vulnerabilidades','p.h2.f3':'Escalada de privilégios','p.h2.f4':'Relatório executivo + técnico','p.h2.f5':'Até 3 alvos','p.h2.f6':'Recomendações de mitigação','p.h3.name':'Red Team','p.h3.desc':'Simulação avançada de ameaça','p.h3.note':'prazo a definir','p.h3.f1':'Simulação de APT real','p.h3.f2':'Phishing + engenharia social','p.h3.f3':'Persistência e lateral movement','p.h3.f4':'Alvos ilimitados','p.h3.f5':'Suporte pós-entrega','p.d1.name':'Script / Automação','p.d1.desc':'Ferramentas simples e scripts','p.d1.note':'a partir de','p.d1.f1':'Scripts Python / Bash','p.d1.f2':'Automação de tarefas','p.d1.f3':'Web scraping simples','p.d1.f4':'Entrega com documentação','p.d2.name':'Ferramenta Custom','p.d2.desc':'Desenvolvimento sob demanda','p.d2.note':'a partir de, por projeto','p.d2.f1':'Levantamento de requisitos','p.d2.f2':'Ferramenta de segurança / OSINT','p.d2.f3':'Interface CLI ou Web','p.d2.f4':'Código comentado e limpo','p.d2.f5':'2 rodadas de revisão','p.d3.name':'Projeto Completo','p.d3.desc':'Sistemas complexos','p.d3.note':'orçamento personalizado','p.d3.f1':'Sistemas full-stack','p.d3.f2':'Plataformas de análise','p.d3.f3':'Integração com APIs externas','p.d3.f4':'Deploy e manutenção','p.d3.f5':'Suporte contínuo','p.i1.name':'OSINT Básico','p.i1.desc':'Levantamento de dados públicos','p.i1.note':'entrega em 48h · 1 pessoa ou empresa','p.i1.f1':'Pesquisa em fontes abertas','p.i1.f2':'Redes sociais e vazamentos','p.i1.f3':'1 pessoa ou empresa','p.i1.f4':'Relatório resumido','p.i2.name':'Investigação Digital','p.i2.desc':'Análise aprofundada e rastreamento','p.i2.note':'por caso','p.i2.f1':'OSINT + SOCMINT avançado','p.i2.f2':'Rastreamento de pegada digital','p.i2.f3':'Análise de metadados','p.i2.f4':'Verificação de identidade','p.i2.f5':'Relatório completo com evidências','p.i3.name':'Due Diligence','p.i3.desc':'Investigação corporativa profunda','p.i3.note':'prazo a definir','p.i3.f1':'Análise de empresas e sócios','p.i3.f2':'Cruzamento de dados extenso','p.i3.f3':'Histórico financeiro e jurídico','p.i3.f4':'Relatório para uso legal','p.i3.f5':'Confidencialidade total','contact.eyebrow':'Contato','contact.title':'Vamos<br>trabalhar.','contact.desc':'Descreva seu caso ou projeto. Respondo em até 24h com total discrição.','fb.eyebrow':'Feedback','fb.title':'O que acharam<br>do serviço.','fb.desc':'Deixe sua avaliação. Ajuda outros clientes e me ajuda a melhorar.','fb.rateLabel':'Sua avaliação *','fb.submit':'Enviar avaliação →','fb.successTitle':'Obrigado pelo feedback!','fb.successDesc':'Sua avaliação foi registrada e aparecerá em breve.','fb.empty':'// nenhuma avaliação ainda','footer.tagline':'Pagando bem, que mal tem?','modal.secure':'Formulário seguro · Dados criptografados localmente','modal.urgency':'Resposta garantida em até 24h','modal.title':'Contratar Serviço','modal.sub':'Preencha os dados do projeto','modal.rateWarn':'⚠ Muitas tentativas. Aguarde 60 segundos.','modal.nameLabel':'Como prefere ser chamado?','modal.contactLabel':'Contato para retorno *','modal.descLabel':'Descreva o projeto / caso','modal.methodLabel':'Método de pagamento','modal.continue':'Continuar → Pagamento','modal.payTitle':'Efetuar Pagamento','modal.paySub':'Realize o pagamento e confirme','modal.pixKey':'Chave PIX','modal.copy':'Copiar','modal.wallets':'Carteiras Aceitas','modal.pixNote':'Após pagar, envie o comprovante via Telegram @lllZer00lll ou email com o nome do serviço.','modal.criptoNote':'Confirme via Telegram @lllZer00lll com TX hash e nome do serviço.','modal.txLabel':'Comprovante / TX Hash (opcional)','modal.confirm':'✓ Confirmar Pedido','modal.back':'← Voltar','modal.successTitle':'Pedido Registrado!','modal.successDesc':'Seu pedido foi enviado com sucesso.<br>Entrarei em contato em até <strong style="color:var(--red-v)">24 horas</strong>.<br><br>Envie o comprovante via Telegram <strong>@lllZer00lll</strong>.','modal.close':'Fechar','val.empty':'→ Preencha um contato para retorno.','val.emailInvalid':'→ Email inválido. Ex: nome@dominio.com','val.tgShort':'→ Telegram: mínimo 5 caracteres após @','val.tgLetter':'→ Telegram: deve começar com letra após @','val.tgChars':'→ Telegram: só letras, números e _','val.tgDouble':'→ Telegram: não pode ter __ consecutivos','val.discord':'→ Discord: formato usuario#0000 (4 dígitos)','val.short':'→ Muito curto. Mínimo 2 caracteres.','val.generic':'→ Use: email@dominio.com · @telegram · discord#0000'},en:{'nav.services':'Services','nav.certs':'Certifications','nav.about':'About','nav.pricing':'Pricing','nav.contact':'Contact','nav.hire':'Hire Me','nav.feedback':'Feedback','hero.badge':'Available for projects','hero.scroll':'Scroll','hero.sub':'Offensive security, development and private investigation. Where others stop at the surface — I go deeper.','hero.cta':'View Services →','services.eyebrow':'Specialties','services.title':'Three areas.<br>One mission.','services.desc':'Technical and discreet work at the intersection of security, code and investigation.','services.s1.title':'Hacking & Security','services.s1.desc':'Penetration testing, vulnerability analysis, reverse engineering and hardening. Ethical pentest with full report.','services.s2.title':'Programming & Dev','services.s2.desc':'Security tool development, automation, scripts and custom systems. From concept to deployment.','services.s3.title':'Private Investigation','services.s3.desc':'Open-source data collection (OSINT), digital tracking, identity verification and technical due diligence.','certs.eyebrow':'Certifications','certs.title':'Verified<br>credentials.','certs.desc':'Internationally recognized technical training in offensive security and analysis.','certs.verified':'Verified','certs.secplus.desc':'Security fundamentals, cryptography, threats and risk management.','certs.ceh.desc':'Certified Ethical Hacker — ethical hacking techniques and penetration testing.','certs.oscp.desc':'Offensive Security Certified Professional — advanced pentest in real environments.','certs.cysa.desc':'Cybersecurity analysis, threat hunting and incident response.','about.eyebrow':'About','about.title':'Who is<br>Zer00.','about.bio':'Independent professional specialized at the intersection of offensive security, development and open-source intelligence. I work discreetly and deliver with precision.','about.stat1':'Data analyzed','about.stat2':'Gaps left','about.stat3':'Discretion guaranteed','pricing.eyebrow':'Services & Pricing','pricing.title':'Choose your<br>service.','pricing.desc':'Full confidentiality and detailed report on all services. Payments via PIX or crypto.','pricing.tab1':'Hacking','pricing.tab3':'Investigation','p.popular':'Popular','p.consult':'On request','p.btn.pay':'Hire & Pay →','p.btn.negotiate':'Negotiate →','p.h1.name':'Scan & Report','p.h1.desc':'Basic vulnerability analysis','p.h1.note':'delivery within 48h · 1 target','p.h1.f1':'Port and service scan','p.h1.f2':'Public CVE identification','p.h1.f3':'Detailed PDF report','p.h1.f4':'1 target / domain','p.h2.name':'Full Pentest','p.h2.desc':'Controlled and documented intrusion','p.h2.note':'delivery within 7 days · 3 targets','p.h2.f1':'Reconnaissance (OSINT + active)','p.h2.f2':'Vulnerability exploitation','p.h2.f3':'Privilege escalation','p.h2.f4':'Executive + technical report','p.h2.f5':'Up to 3 targets','p.h2.f6':'Mitigation recommendations','p.h3.name':'Red Team','p.h3.desc':'Advanced threat simulation','p.h3.note':'timeline to be defined','p.h3.f1':'Real APT simulation','p.h3.f2':'Phishing + social engineering','p.h3.f3':'Persistence and lateral movement','p.h3.f4':'Unlimited targets','p.h3.f5':'Post-delivery support','p.d1.name':'Script / Automation','p.d1.desc':'Simple tools and scripts','p.d1.note':'starting from','p.d1.f1':'Python / Bash scripts','p.d1.f2':'Task automation','p.d1.f3':'Simple web scraping','p.d1.f4':'Delivery with documentation','p.d2.name':'Custom Tool','p.d2.desc':'On-demand development','p.d2.note':'starting from, per project','p.d2.f1':'Requirements gathering','p.d2.f2':'Security / OSINT tool','p.d2.f3':'CLI or Web interface','p.d2.f4':'Commented clean code','p.d2.f5':'2 revision rounds','p.d3.name':'Full Project','p.d3.desc':'Complex systems','p.d3.note':'custom quote','p.d3.f1':'Full-stack systems','p.d3.f2':'Analysis platforms','p.d3.f3':'External API integration','p.d3.f4':'Deploy and maintenance','p.d3.f5':'Ongoing support','p.i1.name':'Basic OSINT','p.i1.desc':'Public data collection','p.i1.note':'delivery in 48h · 1 person or company','p.i1.f1':'Open-source research','p.i1.f2':'Social media and leaks','p.i1.f3':'1 person or company','p.i1.f4':'Summary report','p.i2.name':'Digital Investigation','p.i2.desc':'In-depth analysis and tracking','p.i2.note':'per case','p.i2.f1':'Advanced OSINT + SOCMINT','p.i2.f2':'Digital footprint tracking','p.i2.f3':'Metadata analysis','p.i2.f4':'Identity verification','p.i2.f5':'Complete report with evidence','p.i3.name':'Due Diligence','p.i3.desc':'Deep corporate investigation','p.i3.note':'timeline to be defined','p.i3.f1':'Company and partner analysis','p.i3.f2':'Extensive data cross-referencing','p.i3.f3':'Financial and legal history','p.i3.f4':'Report for legal use','p.i3.f5':'Full confidentiality','contact.eyebrow':'Contact','contact.title':"Let's<br>work.",'contact.desc':'Describe your case or project. I respond within 24h with full discretion.','fb.eyebrow':'Feedback','fb.title':'What clients<br>are saying.','fb.desc':'Leave your review. It helps other clients and helps me improve.','fb.rateLabel':'Your rating *','fb.submit':'Submit review →','fb.successTitle':'Thank you for the feedback!','fb.successDesc':'Your review has been recorded and will appear shortly.','fb.empty':'// no reviews yet','footer.tagline':'Pay well, no harm in that.','modal.secure':'Secure form · Data encrypted locally','modal.urgency':'Response guaranteed within 24h','modal.title':'Hire Service','modal.sub':'Fill in your project details','modal.rateWarn':'⚠ Too many attempts. Wait 60 seconds.','modal.nameLabel':'What should I call you?','modal.contactLabel':'Return contact *','modal.descLabel':'Describe the project / case','modal.methodLabel':'Payment method','modal.continue':'Continue → Payment','modal.payTitle':'Make Payment','modal.paySub':'Complete the payment and confirm','modal.pixKey':'PIX Key','modal.copy':'Copy','modal.wallets':'Accepted Wallets','modal.pixNote':'After paying, send the receipt via Telegram @lllZer00lll or email with the service name.','modal.criptoNote':'Confirm via Telegram @lllZer00lll with TX hash and service name.','modal.txLabel':'Receipt / TX Hash (optional)','modal.confirm':'✓ Confirm Order','modal.back':'← Back','modal.successTitle':'Order Registered!','modal.successDesc':"Your order was sent successfully.<br>I'll reach out within <strong style=\"color:var(--red-v)\">24 hours</strong>.<br><br>Send the receipt via Telegram <strong>@lllZer00lll</strong>.",'modal.close':'Close','val.empty':'→ Please provide a return contact.','val.emailInvalid':'→ Invalid email. Ex: name@domain.com','val.tgShort':'→ Telegram: minimum 5 characters after @','val.tgLetter':'→ Telegram: must start with a letter after @','val.tgChars':'→ Telegram: only letters, numbers and _','val.tgDouble':'→ Telegram: cannot have consecutive __','val.discord':'→ Discord: format user#0000 (4 digits)','val.short':'→ Too short. Minimum 2 characters.','val.generic':'→ Use: email@domain.com · @telegram · user#0000'}};
 
-let lang = 'pt';
-
-function t(key){ return (T[lang]&&T[lang][key]) || (T.pt[key]) || key; }
-
+let lang='pt';
+function t(k){return(T[lang]&&T[lang][k])||(T.pt[k])||k}
 function applyLang(){
-  document.documentElement.lang = lang==='pt'?'pt-BR':'en';
+  document.documentElement.lang=lang==='pt'?'pt-BR':'en';
   document.documentElement.setAttribute('data-lang',lang);
   document.querySelectorAll('[data-i18n]').forEach(el=>{
-    const key=el.getAttribute('data-i18n');
-    const val=t(key);
-    if(val.includes('<br>')||val.includes('<strong>')) el.innerHTML=val;
-    else el.textContent=val;
+    const v=t(el.getAttribute('data-i18n'));
+    if(v.includes('<br>')||v.includes('<strong>'))el.innerHTML=v;else el.textContent=v;
   });
-  // update lang button
-  const btn=document.getElementById('langBtn');
-  const mob=document.getElementById('mobLangBtn');
-  if(lang==='pt'){
-    btn.innerHTML='<span class="lang-flag">🇺🇸</span> EN';
-    mob.textContent='🇺🇸 English';
-  } else {
-    btn.innerHTML='<span class="lang-flag">🇧🇷</span> PT';
-    mob.textContent='🇧🇷 Português';
-  }
-  // update placeholder in modal contact field
-  const cc=document.getElementById('cc');
-  if(cc) cc.placeholder = lang==='en'?'email@ex.com · @telegram · user#1234':'email@ex.com · @telegram · user#1234';
+  const btn=document.getElementById('langBtn'),mob=document.getElementById('mobLangBtn');
+  if(lang==='pt'){btn.innerHTML='<span class="lang-flag">🇺🇸</span> EN';mob.textContent='🇺🇸 English';}
+  else{btn.innerHTML='<span class="lang-flag">🇧🇷</span> PT';mob.textContent='🇧🇷 Português';}
+  const np=document.getElementById('fbName'),sp=document.getElementById('fbService'),tp=document.getElementById('fbText');
+  if(np)np.placeholder=np.getAttribute('data-placeholder-'+lang)||'';
+  if(sp)sp.placeholder=sp.getAttribute('data-placeholder-'+lang)||'';
+  if(tp)tp.placeholder=tp.getAttribute('data-placeholder-'+lang)||'';
 }
+function toggleLang(){lang=lang==='pt'?'en':'pt';applyLang();}
 
-function toggleLang(){
-  lang = lang==='pt'?'en':'pt';
-  applyLang();
-}
+function toggleMenu(){const m=document.getElementById('mobMenu'),b=document.getElementById('hbg');m.classList.toggle('open');b.classList.toggle('open');document.body.style.overflow=m.classList.contains('open')?'hidden':'';}
+function closeMenu(){document.getElementById('mobMenu').classList.remove('open');document.getElementById('hbg').classList.remove('open');document.body.style.overflow='';}
 
-/* ════════════════════════════════════
-   MENU
-════════════════════════════════════ */
-function toggleMenu(){
-  const m=document.getElementById('mobMenu'),b=document.getElementById('hbg');
-  m.classList.toggle('open');b.classList.toggle('open');
-  document.body.style.overflow=m.classList.contains('open')?'hidden':'';
-}
-function closeMenu(){
-  document.getElementById('mobMenu').classList.remove('open');
-  document.getElementById('hbg').classList.remove('open');
-  document.body.style.overflow='';
-}
-
-/* ════════════════════════════════════
-   REVEAL
-════════════════════════════════════ */
-const ro=new IntersectionObserver(es=>{
-  es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});
-},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
+const ro=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');ro.unobserve(e.target);}});},{threshold:.1,rootMargin:'0px 0px -50px 0px'});
 document.querySelectorAll('.rv').forEach(el=>ro.observe(el));
 
-/* ════════════════════════════════════
-   TABS
-════════════════════════════════════ */
-function showTab(id,btn){
-  document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));
-  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));
-  document.getElementById('tab-'+id).classList.add('on');
-  btn.classList.add('on');
-}
+function showTab(id,btn){document.querySelectorAll('.panel').forEach(p=>p.classList.remove('on'));document.querySelectorAll('.tab').forEach(t=>t.classList.remove('on'));document.getElementById('tab-'+id).classList.add('on');btn.classList.add('on');}
 
-/* ════════════════════════════════════
-   SECURITY — Rate limiting & CSRF token
-════════════════════════════════════ */
-// Simple in-memory rate limiter (3 attempts per 60s)
 const RATE={count:0,blocked:false,timer:null};
-function checkRate(){
-  if(RATE.blocked) return false;
-  RATE.count++;
-  if(RATE.count>=3){
-    RATE.blocked=true;
-    document.getElementById('rateWarn').classList.add('show');
-    document.getElementById('continueBtn').disabled=true;
-    RATE.timer=setTimeout(()=>{
-      RATE.blocked=false;RATE.count=0;
-      document.getElementById('rateWarn').classList.remove('show');
-      document.getElementById('continueBtn').disabled=false;
-    },60000);
-  }
-  return true;
-}
+function checkRate(){if(RATE.blocked)return false;RATE.count++;if(RATE.count>=3){RATE.blocked=true;document.getElementById('rateWarn').classList.add('show');document.getElementById('continueBtn').disabled=true;RATE.timer=setTimeout(()=>{RATE.blocked=false;RATE.count=0;document.getElementById('rateWarn').classList.remove('show');document.getElementById('continueBtn').disabled=false;},60000);}return true;}
+let _nonce=null;
+function genNonce(){return Math.random().toString(36).slice(2)+Date.now().toString(36);}
+function sanitize(s){return String(s).replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/['"]/g,'').trim().slice(0,500);}
 
-// CSRF-like nonce (prevents double-submission)
-let _nonce = null;
-function genNonce(){ return Math.random().toString(36).slice(2)+Date.now().toString(36); }
+function detectContact(v){if(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v))return{type:'email',label:'EMAIL'};if(/^@[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(v)&&!/__/.test(v))return{type:'telegram',label:'TELEGRAM'};if(/^[a-z0-9_.]{2,32}$/.test(v)&&!/\.\./.test(v)&&!/^\.|[.]$/.test(v))return{type:'discord',label:'DISCORD'};if(/^.{2,32}#[0-9]{4}$/.test(v))return{type:'discord',label:'DISCORD'};return null;}
+function liveValidate(inp){const v=inp.value.trim(),badge=document.getElementById('ccBadge'),err=document.getElementById('ccErr');if(!v){inp.classList.remove('valid','invalid');badge.style.display='none';err.classList.remove('show');return;}const r=detectContact(v);badge.style.display='';if(r){inp.classList.add('valid');inp.classList.remove('invalid');badge.className='field-badge type-'+r.type;badge.textContent='✓ '+r.label;err.classList.remove('show');}else{inp.classList.add('invalid');inp.classList.remove('valid');badge.className='field-badge type-invalid';badge.textContent='✗ '+(lang==='en'?'INVALID':'INVÁLIDO');err.textContent=getHint(v);err.classList.add('show');}}
+function getHint(v){if(v.includes('@')&&!v.startsWith('@')){if(!/.+@.+\..{2,}/.test(v))return t('val.emailInvalid');}if(v.startsWith('@')){if(v.length<6)return t('val.tgShort');if(!/^@[a-zA-Z]/.test(v))return t('val.tgLetter');if(/[^a-zA-Z0-9_@]/.test(v))return t('val.tgChars');if(/__/.test(v))return t('val.tgDouble');}if(v.includes('#'))return t('val.discord');if(v.length<2)return t('val.short');return t('val.generic');}
 
-// Sanitize input — strip tags
-function sanitize(str){
-  return String(str).replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/['"]/g,'').trim().slice(0,500);
-}
-
-/* ════════════════════════════════════
-   VALIDATION
-════════════════════════════════════ */
-function detectContact(v){
-  if(/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(v)) return {type:'email',label:'EMAIL'};
-  if(/^@[a-zA-Z][a-zA-Z0-9_]{4,31}$/.test(v)&&!/__/.test(v)) return {type:'telegram',label:'TELEGRAM'};
-  if(/^[a-z0-9_.]{2,32}$/.test(v)&&!/\.\./.test(v)&&!/^\.|[.]$/.test(v)) return {type:'discord',label:'DISCORD'};
-  if(/^.{2,32}#[0-9]{4}$/.test(v)) return {type:'discord',label:'DISCORD'};
-  return null;
-}
-function liveValidate(inp){
-  const v=inp.value.trim();
-  const badge=document.getElementById('ccBadge');
-  const err=document.getElementById('ccErr');
-  if(!v){inp.classList.remove('valid','invalid');badge.style.display='none';err.classList.remove('show');return;}
-  const r=detectContact(v);
-  badge.style.display='';
-  if(r){
-    inp.classList.add('valid');inp.classList.remove('invalid');
-    badge.className='field-badge type-'+r.type;
-    badge.textContent='✓ '+r.label;
-    err.classList.remove('show');
-  } else {
-    inp.classList.add('invalid');inp.classList.remove('valid');
-    badge.className='field-badge type-invalid';
-    badge.textContent='✗ '+(lang==='en'?'INVALID':'INVÁLIDO');
-    err.textContent=getHint(v);
-    err.classList.add('show');
-  }
-}
-function getHint(v){
-  if(v.includes('@')&&!v.startsWith('@')){ if(!/.+@.+\..{2,}/.test(v)) return t('val.emailInvalid'); }
-  if(v.startsWith('@')){
-    if(v.length<6) return t('val.tgShort');
-    if(!/^@[a-zA-Z]/.test(v)) return t('val.tgLetter');
-    if(/[^a-zA-Z0-9_@]/.test(v)) return t('val.tgChars');
-    if(/__/.test(v)) return t('val.tgDouble');
-  }
-  if(v.includes('#')) return t('val.discord');
-  if(v.length<2) return t('val.short');
-  return t('val.generic');
-}
-
-/* ════════════════════════════════════
-   PAYMENT MODAL
-════════════════════════════════════ */
-let cur={}, method='pix';
-
-function openPay(name,price,desc){
-  // Check honeypot — if filled, silently abort
-  if(document.getElementById('hp').value) return;
-  cur={name:sanitize(name),price:sanitize(price),desc:sanitize(desc)};
-  _nonce=genNonce();
-  ['mtitle','oname','oname2'].forEach(id=>document.getElementById(id).textContent=cur.name);
-  ['oprice','oprice2'].forEach(id=>document.getElementById(id).textContent=cur.price);
-  document.getElementById('odesc').textContent=cur.desc;
-  goStep(1);
-  document.getElementById('ovl').classList.add('open');
-  document.body.style.overflow='hidden';
-  // focus trap
-  setTimeout(()=>document.getElementById('cn').focus(),400);
-}
-function closePay(){
-  document.getElementById('ovl').classList.remove('open');
-  document.body.style.overflow='';
-  _nonce=null;
-  setTimeout(()=>{goStep(1);resetForm();},420);
-}
+let cur={},method='pix';
+function openPay(name,price,desc){if(document.getElementById('hp').value)return;cur={name:sanitize(name),price:sanitize(price),desc:sanitize(desc)};_nonce=genNonce();['mtitle','oname','oname2'].forEach(id=>document.getElementById(id).textContent=cur.name);['oprice','oprice2'].forEach(id=>document.getElementById(id).textContent=cur.price);document.getElementById('odesc').textContent=cur.desc;goStep(1);document.getElementById('ovl').classList.add('open');document.body.style.overflow='hidden';setTimeout(()=>document.getElementById('cn').focus(),400);}
+function closePay(){document.getElementById('ovl').classList.remove('open');document.body.style.overflow='';_nonce=null;setTimeout(()=>{goStep(1);resetForm();},420);}
 function overlayClick(e){if(e.target===document.getElementById('ovl'))closePay();}
-function goStep(n){
-  document.querySelectorAll('.step').forEach((s,i)=>s.classList.toggle('active',i===n-1));
-  document.getElementById('mbox').scrollTop=0;
-}
-function goS2(){
-  if(!checkRate()) return;
-  // Honeypot check
-  if(document.getElementById('hp').value) return;
-  const inp=document.getElementById('cc');
-  const v=inp.value.trim();
-  const err=document.getElementById('ccErr');
-  if(!v){
-    inp.classList.add('invalid');inp.classList.remove('valid');
-    document.getElementById('ccBadge').style.display='none';
-    err.textContent=t('val.empty');
-    err.classList.add('show');
-    inp.focus();return;
-  }
-  const r=detectContact(v);
-  if(!r){
-    inp.classList.add('invalid');
-    err.textContent=getHint(v);
-    err.classList.add('show');
-    inp.focus();return;
-  }
-  inp.classList.remove('invalid');inp.classList.add('valid');
-  err.classList.remove('show');
-  document.getElementById('pixBlock').style.display=method==='pix'?'block':'none';
-  document.getElementById('criptoBlock').style.display=method==='cripto'?'block':'none';
-  document.getElementById('s2sub').textContent=
-    method==='pix'
-      ?(lang==='en'?'Complete PIX payment and confirm':'Realize o pagamento via PIX e confirme')
-      :(lang==='en'?'Send crypto and confirm TX hash':'Envie a cripto e confirme o TX hash');
-  goStep(2);
-}
-function goS3(){
-  if(!_nonce) return; // prevent double submit
-  _nonce=null;
-  const c=sanitize(document.getElementById('cc').value);
-  const tx=sanitize(document.getElementById('txid').value);
-  const nm=sanitize(document.getElementById('cn').value)||'—';
-  document.getElementById('ssum').innerHTML=
-    `${lang==='en'?'Service':'Serviço'}: ${cur.name}<br>`+
-    `${lang==='en'?'Amount':'Valor'}: ${cur.price}<br>`+
-    `${lang==='en'?'Contact':'Contato'}: ${c}<br>`+
-    `${lang==='en'?'Payment':'Pagamento'}: ${method.toUpperCase()}`+
-    (tx?`<br>TX: ${tx}`:'');
-  // Disable confirm button to prevent re-submit
-  const btn=document.getElementById('confirmBtn');
-  if(btn){btn.disabled=true;}
-  goStep(3);
-}
+function goStep(n){document.querySelectorAll('.step').forEach((s,i)=>s.classList.toggle('active',i===n-1));document.getElementById('mbox').scrollTop=0;}
+function goS2(){if(!checkRate())return;if(document.getElementById('hp').value)return;const inp=document.getElementById('cc'),v=inp.value.trim(),err=document.getElementById('ccErr');if(!v){inp.classList.add('invalid');inp.classList.remove('valid');document.getElementById('ccBadge').style.display='none';err.textContent=t('val.empty');err.classList.add('show');inp.focus();return;}const r=detectContact(v);if(!r){inp.classList.add('invalid');err.textContent=getHint(v);err.classList.add('show');inp.focus();return;}inp.classList.remove('invalid');inp.classList.add('valid');err.classList.remove('show');document.getElementById('pixBlock').style.display=method==='pix'?'block':'none';document.getElementById('criptoBlock').style.display=method==='cripto'?'block':'none';document.getElementById('s2sub').textContent=method==='pix'?(lang==='en'?'Complete PIX payment and confirm':'Realize o pagamento via PIX e confirme'):(lang==='en'?'Send crypto and confirm TX hash':'Envie a cripto e confirme o TX hash');goStep(2);}
+function goS3(){if(!_nonce)return;_nonce=null;const c=sanitize(document.getElementById('cc').value),tx=sanitize(document.getElementById('txid').value);document.getElementById('ssum').innerHTML=`${lang==='en'?'Service':'Serviço'}: ${cur.name}<br>${lang==='en'?'Amount':'Valor'}: ${cur.price}<br>${lang==='en'?'Contact':'Contato'}: ${c}<br>${lang==='en'?'Payment':'Pagamento'}: ${method.toUpperCase()}`+(tx?`<br>TX: ${tx}`:'');const btn=document.getElementById('confirmBtn');if(btn)btn.disabled=true;goStep(3);}
 function goBack(){goStep(1);}
-function resetForm(){
-  ['cn','cc','cd','txid'].forEach(id=>{
-    const e=document.getElementById(id);
-    if(e){e.value='';e.style.borderColor='';e.classList.remove('valid','invalid');}
-  });
-  const hp=document.getElementById('hp');if(hp)hp.value='';
-  const b=document.getElementById('ccBadge');if(b)b.style.display='none';
-  const err=document.getElementById('ccErr');if(err)err.classList.remove('show');
-  const rw=document.getElementById('rateWarn');if(rw)rw.classList.remove('show');
-  const cb=document.getElementById('confirmBtn');if(cb)cb.disabled=false;
-  method='pix';
-  document.querySelectorAll('.pm').forEach(m=>m.classList.toggle('sel',m.dataset.m==='pix'));
-}
-function selM(el,m){
-  method=m;
-  document.querySelectorAll('.pm').forEach(pm=>pm.classList.remove('sel'));
-  el.classList.add('sel');
-}
-function copyPix(){
-  navigator.clipboard.writeText('nridieydus524@gmail.com').then(()=>{
-    const b=document.getElementById('cpBtn');
-    b.textContent=lang==='en'?'✓ Copied':'✓ Copiado';
-    setTimeout(()=>b.textContent=t('modal.copy'),2000);
-  }).catch(()=>{});
-}
-function cpAddr(addr,btn){
-  navigator.clipboard.writeText(addr).then(()=>{
-    btn.textContent='✓';
-    setTimeout(()=>btn.textContent=t('modal.copy'),2000);
-  }).catch(()=>{});
-}
-
-/* Keyboard: Escape closes modal */
-document.addEventListener('keydown',e=>{
-  if(e.key==='Escape'&&document.getElementById('ovl').classList.contains('open')) closePay();
-});
-
-/* Swipe down to close on mobile */
+function resetForm(){['cn','cc','cd','txid'].forEach(id=>{const e=document.getElementById(id);if(e){e.value='';e.style.borderColor='';e.classList.remove('valid','invalid');}});const hp=document.getElementById('hp');if(hp)hp.value='';const b=document.getElementById('ccBadge');if(b)b.style.display='none';const err=document.getElementById('ccErr');if(err)err.classList.remove('show');const rw=document.getElementById('rateWarn');if(rw)rw.classList.remove('show');const cb=document.getElementById('confirmBtn');if(cb)cb.disabled=false;method='pix';document.querySelectorAll('.pm').forEach(m=>m.classList.toggle('sel',m.dataset.m==='pix'));}
+function selM(el,m){method=m;document.querySelectorAll('.pm').forEach(pm=>pm.classList.remove('sel'));el.classList.add('sel');}
+function copyPix(){navigator.clipboard.writeText('045925d5-17c9-4dbc-85cd-3bb4947789bc').then(()=>{const b=document.getElementById('cpBtn');b.textContent=lang==='en'?'✓ Copied':'✓ Copiado';setTimeout(()=>b.textContent=t('modal.copy'),2000);}).catch(()=>{});}
+function cpAddr(addr,btn){navigator.clipboard.writeText(addr).then(()=>{btn.textContent='✓';setTimeout(()=>btn.textContent=t('modal.copy'),2000);}).catch(()=>{});}
+document.addEventListener('keydown',e=>{if(e.key==='Escape'&&document.getElementById('ovl').classList.contains('open'))closePay();});
 let sy=0;
 document.getElementById('mbox').addEventListener('touchstart',e=>{sy=e.touches[0].clientY;},{passive:true});
-document.getElementById('mbox').addEventListener('touchmove',e=>{
-  if(e.touches[0].clientY-sy>90&&document.getElementById('mbox').scrollTop===0) closePay();
-},{passive:true});
+document.getElementById('mbox').addEventListener('touchmove',e=>{if(e.touches[0].clientY-sy>90&&document.getElementById('mbox').scrollTop===0)closePay();},{passive:true});
 
-/* Init */
+/* Feedback */
+let starRating=0;
+const seededReviews=[
+  {author:'Carlos M.',stars:5,service:'Pentest Completo',text:'Entrega impecável. Relatório detalhado, comunicação discreta e profissional. Recomendo fortemente.',date:'Mar 2025'},
+  {author:'Ana R.',stars:5,service:'Investigação Digital',text:'Resultado surpreendente. Encontrou informações que eu achei que eram impossíveis de rastrear.',date:'Fev 2025'},
+  {author:'Dev_X',stars:4,service:'Ferramenta Custom',text:'Ferramenta entregue no prazo com código limpo. Só demorou um pouco mais que o esperado.',date:'Jan 2025'},
+];
+let reviews=[...seededReviews];
+
+function renderReviews(){
+  const wall=document.getElementById('reviewWall'),empty=document.getElementById('fbEmpty');
+  if(!reviews.length){wall.innerHTML='';empty.style.display='block';return;}
+  empty.style.display='none';
+  wall.innerHTML=reviews.map(r=>`<div class="review-card"><div class="review-top"><div><div class="review-author">${sanitize(r.author||'Anônimo')}</div><div class="review-date">${r.date||''}</div></div><div class="review-stars">${'★'.repeat(r.stars)}${'☆'.repeat(5-r.stars)}</div></div><div class="review-text">${sanitize(r.text)}</div>${r.service?`<span class="review-service">${sanitize(r.service)}</span>`:''}</div>`).join('');
+}
+function hoverStar(n){document.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('lit',i<n));}
+function unhoverStar(){document.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('lit',i<starRating));}
+function rateStar(n){starRating=n;document.querySelectorAll('.star').forEach((s,i)=>s.classList.toggle('lit',i<n));}
+function submitFeedback(){
+  if(!starRating){document.getElementById('starRow').style.animation='shake .3s ease';setTimeout(()=>document.getElementById('starRow').style.animation='',300);return;}
+  const name=sanitize(document.getElementById('fbName').value)||'Anônimo';
+  const service=sanitize(document.getElementById('fbService').value);
+  const text=sanitize(document.getElementById('fbText').value);
+  if(!text){document.getElementById('fbText').style.borderColor='rgba(224,62,45,.7)';return;}
+  document.getElementById('fbText').style.borderColor='';
+  document.getElementById('fbSubmit').disabled=true;
+  setTimeout(()=>{
+    const now=new Date();
+    const months=['Jan','Fev','Mar','Abr','Mai','Jun','Jul','Ago','Set','Out','Nov','Dez'];
+    reviews.unshift({author:name,stars:starRating,service,text,date:months[now.getMonth()]+' '+now.getFullYear()});
+    renderReviews();
+    document.getElementById('fbFormInner').style.display='none';
+    document.getElementById('fbSuccess').style.display='block';
+  },600);
+}
+const ks=document.createElement('style');
+ks.textContent='@keyframes shake{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}75%{transform:translateX(6px)}}';
+document.head.appendChild(ks);
+
+renderReviews();
 applyLang();
 </script>
 </body>
